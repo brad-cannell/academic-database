@@ -45,6 +45,7 @@ served the same purpose.
 | `year`, `month`, `day` | publication date (partial precision allowed) |
 | `DOI` | digital object identifier |
 | `PMID` | PubMed ID |
+| `url` | link to the publisher's online version of the article |
 | `author_position` | Brad's position in the author list (e.g. `first`, `last`, `middle`) |
 | `mentee_author` | `TRUE`/`FALSE` — a mentee is a co-author |
 | `multi_institution` | `TRUE`/`FALSE` — authors span multiple institutions |
