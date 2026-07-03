@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-Project context for Claude Code when working in this repo.
+Project context for Codex when working in this repo.
 
 ## What this is
 
