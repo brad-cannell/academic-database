@@ -66,3 +66,9 @@ notes for anything not covered here, and register this repo in its `_context/sat
   of scope for v1 per the decisions above.
 - When migrating data (Phase 2), prefer small, reviewable batches per entity over one giant
   commit, so Brad can spot-check accuracy against the CV/Google Sheet as we go.
+- After editing any `data/*.csv`, run `python3 scripts/validate_csvs.py` (stdlib only, no
+  install needed) and fix anything it flags before committing. It checks headers, controlled
+  vocabularies, booleans, dates/years, id uniqueness, and foreign keys (e.g.
+  `budget_years.grant_id` → `grants.id`) against the schema in `README.md`. It's manual for
+  now (run it yourself); wiring it into a pre-commit hook or CI is planned once the schema
+  has settled.
