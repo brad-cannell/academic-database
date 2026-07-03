@@ -60,6 +60,33 @@ notes for anything not covered here, and register this repo in its `_context/sat
 - **Phase 5 — retire the Google Sheet** once the new system has handled a full month of
   real updates.
 
+## AI skills
+
+This repo has no `_ai/agent-workflows/` canonical-source-and-sync-script setup like
+knowledge-workbench does — skills here are hand-authored directly into each mirror location,
+and any edit has to be applied to both mirrors by hand.
+
+To add a new skill `<name>`:
+
+1. Write `.claude/skills/<name>/SKILL.md` (Claude Code) with YAML frontmatter (`name`,
+   `description`), a `## Usage` section showing both invocations, and an `## Instructions`
+   section with the exact command(s) to run.
+2. Copy that file verbatim to `.agents/skills/<name>/SKILL.md` (Codex mirror), and add
+   `.agents/skills/<name>/agents/openai.yaml` with:
+   ```yaml
+   policy:
+     allow_implicit_invocation: true
+   ```
+3. Optionally add a legacy command mirror at `.claude/commands/<name>.md` — same body as the
+   skill, minus the `name:` frontmatter field and the `## Usage` section.
+4. Document the skill's purpose here in `CLAUDE.md`/`AGENTS.md` if it changes how the repo
+   should be worked in (e.g. a new required pre-commit check).
+
+Existing skills:
+
+- **`validate-csvs`** — runs `scripts/validate_csvs.py` against `data/*.csv` and reports
+  errors/warnings. See "Working in this repo" below for when to run it.
+
 ## Working in this repo
 
 - Don't add a database engine, Shiny, or a publishing pipeline — those are explicitly out
