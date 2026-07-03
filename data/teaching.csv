@@ -1,1 +1,10 @@
 institution,department,course_code,course_title,start_year,end_year,role,notes
+Texas Christian University,Department of Applied Health Sciences,HCHS 80313,Introduction to R Programming and Data Management,2026,,instructor-of-record,
+University of Texas Health Science Center at Houston School of Public Health,Department of Epidemiology Human Genetics and Environmental Sciences,PH2710,Epidemiology Methods 3,2020,2024,instructor-of-record,
+University of Texas Health Science Center at Houston School of Public Health,Department of Epidemiology Human Genetics and Environmental Sciences,PHWD/PHWM 2998,Introduction to R Programming for Epidemiologic Research,2019,2025,instructor-of-record,
+University of North Texas Health Science Center,Department of Biostatistics and Epidemiology / Department of Behavioral and Community Health (cross-listed),EPID/BACH 5313,Introduction to Data Management and Statistical Computing,2013,2018,instructor-of-record,
+University of North Texas Health Science Center,Department of Biostatistics and Epidemiology / Department of Behavioral and Community Health (cross-listed),EPID 6330/BACH 6324,Epidemiology of Aging / Public Health and Aging,2012,2018,instructor-of-record,
+University of North Texas Health Science Center,Department of Biostatistics and Epidemiology,EPID 6312,Advanced Methods in Epidemiology II,2013,2014,instructor-of-record,
+University of North Texas Health Science Center,Department of Behavioral and Community Health,BACH 5321,Injury and Violence Prevention,2013,2013,instructor-of-record,
+University of North Texas Health Science Center,Department of Behavioral and Community Health,BACH 5300,Theoretical Foundations of Individual and Community Health,2012,2013,instructor-of-record,
+University of Florida,Department of Epidemiology and Biostatistics,GMS 6829,Longitudinal Data Analysis,2011,2011,course-director-other,"CV lists this under Teaching Experience but names Mildred Maldonado-Molina PhD as course director - Brad's exact role (guest lecturer/TA/co-instructor) is unclear; verify with Brad"

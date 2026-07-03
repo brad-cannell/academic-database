@@ -1,1 +1,51 @@
 mentee_name,role,degree_or_context,start_year,end_year,primary_advisor,current_status,role_detail
+Megan Gorby,committee-member,MPH / MS Anthropology,2012,2012,FALSE,,Primary Advisor: Beverly Davenport PhD
+Sarah Cardenas,committee-member,MPH / MS Anthropology,2012,2013,FALSE,,Primary Advisor: Doug Henry PhD
+Lisa Quirk,committee-member,MPH / MS Anthropology,2012,2014,FALSE,,Primary Advisor: Lisa Henry PhD
+Jessica Phillips,committee-member,MPH / MS Anthropology,2013,2014,FALSE,,Primary Advisor: Beverly Davenport PhD
+Natalie Morrissey,committee-member,MPH / MS Anthropology,2013,2014,FALSE,,Primary Advisor: Lisa Henry PhD
+Ann Davis,committee-member,PhD,2014,2017,FALSE,,Primary Advisor: Sumihiro Suzuki PhD
+Lauren Tien,primary-advisor,MPH,2018,2019,TRUE,graduated,Thesis/dissertation committee - Primary Advisor: Brad Cannell PhD MPH
+Jared Weigan,primary-advisor,MPH,2019,2020,TRUE,graduated,Thesis/dissertation committee - Primary Advisor: Brad Cannell PhD MPH
+Eriko Iwatate,primary-advisor,PhD,2019,2022,TRUE,graduated,Thesis/dissertation committee - Primary Advisor: Brad Cannell PhD MPH
+Rebecca Schaefer,committee-member,MPH,2021,2023,FALSE,graduated,Primary Advisor: Hulin Wu PhD
+Curtis Herges,primary-advisor,MS,2020,2024,TRUE,graduated,Thesis/dissertation committee - Primary Advisor: Brad Cannell PhD MPH
+Riddhi Patel,committee-member,PhD,2021,2024,FALSE,graduated,Primary Advisor: George Delclos PhD MD
+Tim Clark,primary-advisor,PhD,2022,,TRUE,in-program,Thesis/dissertation committee - Primary Advisor: Brad Cannell PhD MPH
+Michelle Pennington,primary-advisor,PhD,2022,,TRUE,in-program,Thesis/dissertation committee - Primary Advisor: Brad Cannell PhD MPH
+Rebecca Molsberry,primary-advisor,PhD,2024,,TRUE,in-program,Thesis/dissertation committee - Primary Advisor: Brad Cannell PhD MPH
+Matthew Rossheim,ra-ta-intern,PhD,2013,2014,FALSE,graduated,Research/teaching assistant or intern
+Molly Beyer,ra-ta-intern,MPH / MS,2014,2015,FALSE,graduated,Research/teaching assistant or intern
+Katelyn Kassarjian Jetelina,ra-ta-intern,MPH,2014,2015,FALSE,graduated,Research/teaching assistant or intern
+Kari Teigen,ra-ta-intern,MPH,2014,2015,FALSE,graduated,Research/teaching assistant or intern
+Kshitiz Rakesh,ra-ta-intern,MPH,2014,2016,FALSE,graduated,Research/teaching assistant or intern
+Sepeadeh Radpour,ra-ta-intern,PhD,2015,2016,FALSE,not-enrolled,Research/teaching assistant or intern
+Anthony Balda,ra-ta-intern,DO,2015,2016,FALSE,graduated,Research/teaching assistant or intern
+Rafui Animashaun,ra-ta-intern,MPH,2016,2017,FALSE,graduated,Research/teaching assistant or intern
+Kwynn Gonzalez-Pons,ra-ta-intern,MPH,2017,2018,FALSE,graduated,Research/teaching assistant or intern
+Megin Parayil,ra-ta-intern,MPH,2018,2020,FALSE,graduated,Research/teaching assistant or intern
+Jared Weigan,ra-ta-intern,MPH,2019,2020,FALSE,graduated,Research/teaching assistant or intern
+Grace Goulet,ra-ta-intern,MPH,2020,2021,FALSE,graduated,Research/teaching assistant or intern
+Chiu Feng Yap,ra-ta-intern,MPH,2020,2021,FALSE,graduated,Research/teaching assistant or intern
+Yoselyn Mendiola,ra-ta-intern,MPH,2021,2022,FALSE,graduated,Research/teaching assistant or intern
+Rabiya Mian,ra-ta-intern,MPH,2022,2023,FALSE,graduated,Research/teaching assistant or intern
+Yixiao Chen,ra-ta-intern,PhD,2022,2023,FALSE,graduated,Research/teaching assistant or intern
+Riddhi Patel,ra-ta-intern,PhD,2022,2023,FALSE,graduated,Research/teaching assistant or intern
+Supriyanka Addimulam,ra-ta-intern,MPH,2022,2023,FALSE,graduated,Research/teaching assistant or intern
+Marissa Curtis Gough,ra-ta-intern,MPH,2022,2023,FALSE,graduated,Research/teaching assistant or intern
+Nicholas Sevey,ra-ta-intern,MD/MPH,2023,2024,FALSE,graduated,Research/teaching assistant or intern
+Ebiekimie Dambo,ra-ta-intern,MPH,2023,2025,FALSE,graduated,Research/teaching assistant or intern
+Morrigan Mahady,ra-ta-intern,MPH,2023,2025,FALSE,graduated,Research/teaching assistant or intern
+Brianna Burzynski,ra-ta-intern,MPH,2024,2025,FALSE,graduated,Research/teaching assistant or intern
+Odinakachukwu Dimgba,ra-ta-intern,MPH,2024,2025,FALSE,graduated,Research/teaching assistant or intern
+Rania Abdelkhaleq,ra-ta-intern,PhD,2024,,FALSE,enrolled,Research/teaching assistant or intern
+Rachit Sabharwal,ra-ta-intern,PhD,2024,2025,FALSE,enrolled,Research/teaching assistant or intern
+Alondra Oropeza,ra-ta-intern,Undergraduate,2025,2026,FALSE,enrolled,Research/teaching assistant or intern
+Cailyn Meyer,ra-ta-intern,MS,2026,,FALSE,enrolled,Research/teaching assistant or intern
+Duy Anh Nguyen,ra-ta-intern,MBA,2026,,FALSE,enrolled,Research/teaching assistant or intern
+Rowan Schlotterbeck,ra-ta-intern,Undergraduate,2026,,FALSE,enrolled,Research/teaching assistant or intern
+Jennifer Jones-Minifield,external-mentee,National Center to Address Elder Mistreatment Mentorship Program,2025,2026,FALSE,,Mentorship Program Member
+Diana Cervantes,external-mentee,National Center to Address Elder Mistreatment Mentorship Program,2026,2027,FALSE,,Mentorship Program Member
+Rujeko Machinga,external-mentee,National Center to Address Elder Mistreatment Mentorship Program,2026,2027,FALSE,,Mentorship Program Member
+Xuan (Sharon) Zhang,postdoc-mentee,DETECT-RPC project,2023,2023,FALSE,,PI DETECT-RPC project
+Kevin Rix,faculty-mentee,Faculty Mentorship Committee,2023,2025,FALSE,,Faculty Mentorship Committee Member
