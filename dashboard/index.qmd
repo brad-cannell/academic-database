@@ -1,0 +1,280 @@
+---
+title: "Academic Activity Dashboard"
+author: "Brad Cannell"
+format:
+  dashboard:
+    theme: cosmo
+    nav-buttons: []
+    logo: null
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+data_dir <- "../data"
+
+col_types_publications <- cols(
+  id = col_character(),
+  publication_type = col_character(),
+  title = col_character(),
+  authors = col_character(),
+  journal_or_venue = col_character(),
+  year = col_double(),
+  month = col_double(),
+  day = col_double(),
+  DOI = col_character(),
+  PMID = col_character(),
+  url = col_character(),
+  author_position = col_character(),
+  mentee_author = col_logical(),
+  multi_institution = col_logical(),
+  status = col_character(),
+  notes = col_character()
+)
+
+publications <- read_csv(file.path(data_dir, "publications.csv"), col_types = col_types_publications)
+grants <- read_csv(file.path(data_dir, "grants.csv"), show_col_types = FALSE)
+effort_by_year <- read_csv(file.path(data_dir, "effort_by_year.csv"), show_col_types = FALSE)
+presentations <- read_csv(file.path(data_dir, "presentations.csv"), show_col_types = FALSE)
+teaching <- read_csv(file.path(data_dir, "teaching.csv"), show_col_types = FALSE)
+service <- read_csv(file.path(data_dir, "service.csv"), show_col_types = FALSE)
+service_log <- read_csv(file.path(data_dir, "service_log.csv"), show_col_types = FALSE)
+mentoring <- read_csv(file.path(data_dir, "mentoring.csv"), show_col_types = FALSE)
+awards <- read_csv(file.path(data_dir, "awards.csv"), show_col_types = FALSE)
+reviewer_relationships <- read_csv(file.path(data_dir, "reviewer_relationships.csv"), show_col_types = FALSE)
+
+grants <- grants %>% mutate(start_year = as.integer(substr(start_date, 1, 4)))
+
+money <- function(x) {
+  ifelse(is.na(x), "", paste0("$", formatC(x, format = "d", big.mark = ",")))
+}
+
+blank_na <- function(x) tidyr::replace_na(x, "")
+```
+
+# Overview
+
+## Row {height="20%"}
+
+```{r}
+#| content: valuebox
+#| title: "Publications"
+#| icon: journal-text
+#| color: primary
+nrow(publications)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Funded Grants"
+#| icon: cash-coin
+#| color: success
+sum(grants$status == "funded")
+```
+
+```{r}
+#| content: valuebox
+#| title: "Total Funding (funded + completed)"
+#| icon: piggy-bank
+#| color: success
+money(sum(grants$total_cost[grants$status %in% c("funded", "completed")], na.rm = TRUE))
+```
+
+```{r}
+#| content: valuebox
+#| title: "Presentations"
+#| icon: mic
+#| color: info
+nrow(presentations)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Active Mentees"
+#| icon: people
+#| color: info
+sum(is.na(mentoring$end_year))
+```
+
+## Row {height="40%"}
+
+### Column {width="60%"}
+
+```{r}
+#| title: "Publications by Year"
+publications %>%
+  count(year) %>%
+  ggplot(aes(x = year, y = n)) +
+  geom_col(fill = "#2c3e50") +
+  labs(x = NULL, y = "Publications") +
+  theme_minimal(base_size = 13)
+```
+
+### Column {width="40%"}
+
+```{r}
+#| title: "Publications by Type"
+publications %>%
+  count(publication_type) %>%
+  ggplot(aes(x = reorder(publication_type, n), y = n)) +
+  geom_col(fill = "#2c3e50") +
+  coord_flip() +
+  labs(x = NULL, y = "Count") +
+  theme_minimal(base_size = 13)
+```
+
+## Row {height="40%"}
+
+```{r}
+#| title: "Grant Funding by Start Year"
+grants %>%
+  filter(!is.na(start_year)) %>%
+  group_by(start_year) %>%
+  summarise(total_cost = sum(total_cost, na.rm = TRUE)) %>%
+  ggplot(aes(x = start_year, y = total_cost)) +
+  geom_col(fill = "#18795a") +
+  scale_y_continuous(labels = scales::label_dollar(scale = 1e-6, suffix = "M")) +
+  labs(x = NULL, y = "Total award amount") +
+  theme_minimal(base_size = 13)
+```
+
+# Funding
+
+## Row {height="20%"}
+
+```{r}
+#| content: valuebox
+#| title: "Funded (active)"
+#| icon: check-circle
+#| color: success
+sum(grants$status == "funded")
+```
+
+```{r}
+#| content: valuebox
+#| title: "Completed"
+#| icon: archive
+#| color: secondary
+sum(grants$status == "completed")
+```
+
+```{r}
+#| content: valuebox
+#| title: "PI / Site PI Grants"
+#| icon: award
+#| color: primary
+sum(grants$role %in% c("PI", "Site PI"))
+```
+
+## Row
+
+```{r}
+#| title: "All Grants"
+grants %>%
+  arrange(desc(start_date)) %>%
+  transmute(
+    Title = title,
+    Role = role,
+    Sponsor = funder_abbreviation,
+    `Award #` = blank_na(award_number),
+    Status = status,
+    `Total Cost` = money(total_cost),
+    Start = start_date,
+    End = end_date,
+    `Effort %` = ifelse(is.na(effort_percent), "", as.character(effort_percent))
+  ) %>%
+  knitr::kable()
+```
+
+# Publications
+
+## Row
+
+```{r}
+#| title: "All Publications"
+publications %>%
+  arrange(desc(year), desc(month)) %>%
+  transmute(
+    Year = year,
+    Title = title,
+    Journal = journal_or_venue,
+    Type = publication_type,
+    Position = author_position,
+    Status = status
+  ) %>%
+  knitr::kable()
+```
+
+# Teaching & Mentoring
+
+## Row {height="20%"}
+
+```{r}
+#| content: valuebox
+#| title: "Ongoing Courses"
+#| icon: mortarboard
+#| color: primary
+sum(is.na(teaching$end_year))
+```
+
+```{r}
+#| content: valuebox
+#| title: "Active Mentees"
+#| icon: people-fill
+#| color: info
+sum(is.na(mentoring$end_year))
+```
+
+```{r}
+#| content: valuebox
+#| title: "Active Service Roles"
+#| icon: briefcase
+#| color: secondary
+sum(is.na(service$end_year))
+```
+
+## Row
+
+### Column {width="50%"}
+
+```{r}
+#| title: "Ongoing Teaching"
+teaching %>%
+  filter(is.na(end_year)) %>%
+  transmute(Institution = institution, Course = paste(course_code, course_title, sep = " — "), `Since` = start_year, Role = role) %>%
+  knitr::kable()
+```
+
+```{r}
+#| title: "Active Mentoring"
+mentoring %>%
+  filter(is.na(end_year)) %>%
+  transmute(Mentee = mentee_name, Role = role, Context = degree_or_context, Since = start_year) %>%
+  knitr::kable()
+```
+
+### Column {width="50%"}
+
+```{r}
+#| title: "Active Service"
+service %>%
+  filter(is.na(end_year)) %>%
+  transmute(Organization = organization, Role = role, Category = category, Since = start_year) %>%
+  knitr::kable()
+```
+
+```{r}
+#| title: "Ongoing Reviewer Relationships"
+reviewer_relationships %>%
+  filter(status == "ongoing") %>%
+  transmute(Journal = journal_or_venue, Type = relationship_type) %>%
+  knitr::kable()
+```

@@ -30,8 +30,10 @@ notes for anything not covered here, and register this repo in its `_context/sat
    rendered as a Quarto dashboard (`format: dashboard`). No DuckDB/SQLite/Shiny in v1.
 2. **Repo**: a new satellite repo (this one), not a folder inside an existing repo.
 3. **Publishing**: local rendering only for now — no GitHub Pages/Netlify. The repo is
-   public, but the publish decision is deferred until there's been time to weigh exposing
-   award numbers/dollar amounts.
+   public, and Brad confirmed 2026-07-11 he's comfortable with that (including the real award
+   numbers/dollar amounts already in `data/grants.csv`). That resolves the *data*-sensitivity
+   question; whether to publish the rendered *dashboard* (GitHub Pages/Netlify) is still a
+   separate, undecided step.
 4. **Scope**: v1 includes presentations, teaching, and awards (sourced from Brad's CV), not
    just the Google Sheet's original six entities.
 5. **`professional_memberships.csv`** is included in v1, not deferred.
@@ -49,16 +51,25 @@ notes for anything not covered here, and register this repo in its `_context/sat
 ## Phased plan
 
 - **Phase 0 — done.** Google Sheet and CV both audited; data model is final.
-- **Phase 1 — done (this commit).** Repo scaffolding: `CLAUDE.md`/`AGENTS.md`, `README.md`, empty CSVs
+- **Phase 1 — done.** Repo scaffolding: `CLAUDE.md`/`AGENTS.md`, `README.md`, empty CSVs
   (header row only) for all 14 entities.
-- **Phase 2 — migrate.** Convert the Google Sheet's rows and the CV's sections into the
-  CSVs, reconciling overlaps per decision #6 (CV wins).
-- **Phase 3 — dashboard v1.** Quarto dashboard: headline counts by year, funding summary,
-  teaching load, active mentoring/service tables.
-- **Phase 4 — automation.** AI entry skill first, then ORCID/PubMed ingest, then NIH
-  RePORTER, then a scheduled monthly refresh.
+- **Phase 2 — done.** All 14 `data/*.csv` files migrated from the Google Sheet and CV,
+  reconciled per decision #6 (CV wins). Validated clean with `scripts/validate_csvs.py`.
+- **Phase 3 — dashboard v1 built 2026-07-11, rendering not yet verified.**
+  `dashboard/index.qmd`: headline value boxes and plots (publications by year/type, grant
+  funding by start year), a funding table, a publications table, and ongoing
+  teaching/mentoring/service/reviewer tables. All underlying R/dplyr logic was run and
+  checked against the real CSVs (see git history), but **Quarto itself could not be
+  installed in the sandboxed session that built this** (its release download is blocked by
+  that session's network policy), so the `.qmd` has never actually been rendered to HTML.
+  Run `quarto render dashboard/index.qmd` locally (Positron has Quarto already) and fix
+  anything that doesn't render before treating Phase 3 as done.
+- **Phase 4 — automation, first step done.** `add-academic-entry` skill built 2026-07-11:
+  paste a citation/award notice/CV bullet, get a previewed CSV row, confirm, then
+  auto-validate. ORCID/PubMed ingest, NIH RePORTER ingest, and the scheduled monthly
+  refresh are not started.
 - **Phase 5 — retire the Google Sheet** once the new system has handled a full month of
-  real updates.
+  real updates. Not started — this needs a month of real usage, not more building.
 
 ## AI skills
 
@@ -86,6 +97,9 @@ Existing skills:
 
 - **`validate-csvs`** — runs `scripts/validate_csvs.py` against `data/*.csv` and reports
   errors/warnings. See "Working in this repo" below for when to run it.
+- **`add-academic-entry`** — turns a pasted citation, award notice, CV bullet, or other
+  free-text description into a previewed, schema-correct row in the right `data/*.csv`,
+  then validates. Requires confirmation before writing; never commits/pushes on its own.
 
 ## Working in this repo
 
