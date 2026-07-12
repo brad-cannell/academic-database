@@ -10,9 +10,10 @@ served the same purpose.
 - **Data**: one CSV file per entity in `data/`, hand-edited or AI-assisted, versioned in git.
 - **Access**: queried directly with R (`readr` / `dplyr`) — no database engine (no
   DuckDB/SQLite) in v1.
-- **Presentation**: a Quarto dashboard (`format: dashboard`) rendered locally. No
-  Shiny, no automated publishing (GitHub Pages/Netlify) yet — that decision is deferred
-  until there's been time to weigh exposing award numbers and dollar amounts publicly.
+- **Presentation**: a Quarto dashboard (`format: dashboard`), auto-published to GitHub
+  Pages by `.github/workflows/publish-dashboard.yml` on every push to `main` that touches
+  `dashboard/` or `data/` (or via manual dispatch). No Shiny. `quarto render
+  dashboard/index.qmd` still works locally for previewing changes before they're pushed.
 
 ## Conventions
 
