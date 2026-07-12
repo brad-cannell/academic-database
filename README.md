@@ -192,15 +192,21 @@ served the same purpose.
 - **Phase 3 — done.** `dashboard/index.qmd` renders cleanly with `quarto render
   dashboard/index.qmd` and has been visually verified across all four pages (Overview,
   Funding, Publications, Teaching & Mentoring).
-- **Phase 4 — in progress.** The `add-academic-entry` skill (paste a citation/award
-  notice/CV bullet, get a previewed CSV row, confirm, auto-validate) is built. ORCID/PubMed
-  ingest (`scripts/ingest_orcid_pubmed.py`) is also built and has backfilled DOI/PMID values
-  for existing publications from ORCID's public API. NIH RePORTER ingest
+- **Phase 4 — done.** The `add-academic-entry` skill (paste a citation/award notice/CV
+  bullet, get a previewed CSV row, confirm, auto-validate) is built. ORCID/PubMed ingest
+  (`scripts/ingest_orcid_pubmed.py`) is also built and has backfilled DOI/PMID values for
+  existing publications from ORCID's public API. NIH RePORTER ingest
   (`scripts/ingest_nih_reporter.py`) is also built — a preview-only reconciliation report
   (never writes to any CSV) that already caught and fixed three real `grants.csv` errors on
   its first run: a stale award number and program-name-instead-of-project-title for the
   Roybal Center grant, and two no-cost-extension end dates that hadn't been updated. A
-  scheduled monthly refresh is not started.
+  scheduled monthly refresh (`.github/workflows/monthly-refresh.yml`) runs both ingest
+  scripts and re-renders the dashboard as a smoke test on the 1st of each month, opening a
+  GitHub Issue with the results — report-only, it never writes to a CSV or commits. Verified
+  working via two manual test runs 2026-07-11. One open item from testing: RePORTER's
+  budget-year coverage report flagged that grant-02's `budget_years.csv` total ($4,664,014
+  across 3 rows) doesn't match RePORTER's 2 reported fiscal years ($3,056,003) — needs manual
+  review, same category of issue as the grant-01/grant-05 gaps fixed earlier.
 - **Phase 5 — not started.** Retire the Google Sheet once this system has handled a full
   month of real updates.
 
