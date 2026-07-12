@@ -55,15 +55,15 @@ notes for anything not covered here, and register this repo in its `_context/sat
   (header row only) for all 14 entities.
 - **Phase 2 — done.** All 14 `data/*.csv` files migrated from the Google Sheet and CV,
   reconciled per decision #6 (CV wins). Validated clean with `scripts/validate_csvs.py`.
-- **Phase 3 — dashboard v1 built 2026-07-11, rendering not yet verified.**
-  `dashboard/index.qmd`: headline value boxes and plots (publications by year/type, grant
-  funding by start year), a funding table, a publications table, and ongoing
-  teaching/mentoring/service/reviewer tables. All underlying R/dplyr logic was run and
-  checked against the real CSVs (see git history), but **Quarto itself could not be
-  installed in the sandboxed session that built this** (its release download is blocked by
-  that session's network policy), so the `.qmd` has never actually been rendered to HTML.
-  Run `quarto render dashboard/index.qmd` locally (Positron has Quarto already) and fix
-  anything that doesn't render before treating Phase 3 as done.
+- **Phase 3 — done.** `dashboard/index.qmd` renders cleanly with `quarto render
+  dashboard/index.qmd` and was visually verified across all four pages (Overview, Funding,
+  Publications, Teaching & Mentoring): headline value boxes and plots (publications by
+  year/type, grant funding by start year), a funding table, a publications table, and ongoing
+  teaching/mentoring/service/reviewer tables. Verified locally 2026-07-11; two render bugs
+  found and fixed along the way — a stray `logo: null` in the YAML front matter (dashboard
+  `logo` must be a path, `false`, or omitted, never `null`), and an overlong value-box title
+  ("Total Funding (funded + completed)") that wrapped to two lines and clipped the dollar
+  figure out of its fixed-height card (shortened to "Total Funding").
 - **Phase 4 — automation, first step done.** `add-academic-entry` skill built 2026-07-11:
   paste a citation/award notice/CV bullet, get a previewed CSV row, confirm, then
   auto-validate. ORCID/PubMed ingest, NIH RePORTER ingest, and the scheduled monthly
