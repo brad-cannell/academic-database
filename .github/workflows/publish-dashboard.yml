@@ -54,8 +54,13 @@ jobs:
       - name: Render dashboard
         run: quarto render dashboard/index.qmd
 
+      # enablement: true tells this step to create/enable the Pages site
+      # (source = GitHub Actions) via the API if it doesn't exist yet,
+      # instead of just erroring out on the first run.
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload dashboard artifact
         uses: actions/upload-pages-artifact@v3
