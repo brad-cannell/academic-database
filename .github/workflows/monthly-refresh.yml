@@ -1,0 +1,131 @@
+name: Monthly data refresh
+
+# Report-only Phase 4 automation: runs the ORCID/PubMed and NIH RePORTER
+# ingest scripts against the current data/*.csv files, re-renders the
+# dashboard as a smoke test, and opens a GitHub Issue summarizing the
+# results. Never writes to any CSV and never commits -- Brad reviews the
+# issue and applies any changes by hand, per how both scripts are designed
+# (see scripts/ingest_orcid_pubmed.py and scripts/ingest_nih_reporter.py).
+
+on:
+  schedule:
+    - cron: "0 13 1 * *" # 1st of every month, 13:00 UTC
+  workflow_dispatch: {} # allows manually triggering a run from the Actions tab, for testing
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      # Both scripts are stdlib-only and preview by default -- neither is
+      # passed --apply here, so nothing is written to data/*.csv.
+      - name: Run ORCID/PubMed ingest (preview only)
+        run: python3 scripts/ingest_orcid_pubmed.py > orcid_output.txt 2>&1 || true
+
+      - name: Run NIH RePORTER ingest (report only)
+        run: python3 scripts/ingest_nih_reporter.py > nih_output.txt 2>&1 || true
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::readr
+            any::dplyr
+            any::tidyr
+            any::ggplot2
+            any::knitr
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      # Smoke test only: confirms the dashboard still renders cleanly
+      # against the current CSVs. Since this workflow never writes to the
+      # CSVs, the rendered output isn't expected to differ from what's
+      # already checked in -- this just catches schema drift or Quarto/R
+      # breakage before Brad hits it locally.
+      - name: Render dashboard
+        id: render
+        run: |
+          if quarto render dashboard/index.qmd > render_output.txt 2>&1; then
+            echo "status=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=failure" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open summary issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const read = (path) => {
+              try { return fs.readFileSync(path, 'utf8').trim(); }
+              catch { return '(no output captured)'; }
+            };
+            const orcid = read('orcid_output.txt');
+            const nih = read('nih_output.txt');
+            const render = read('render_output.txt');
+            const renderStatus = '${{ steps.render.outputs.status }}';
+            const date = new Date().toISOString().slice(0, 10);
+
+            const body = [
+              `## Monthly data refresh -- ${date}`,
+              '',
+              `**Dashboard render check:** ${renderStatus === 'success' ? ':white_check_mark: succeeded' : ':x: FAILED'}`,
+              '',
+              ...(renderStatus === 'success' ? [] : [
+                '<details><summary>Render output</summary>',
+                '',
+                '```',
+                render,
+                '```',
+                '</details>',
+                '',
+              ]),
+              '### ORCID/PubMed ingest (data/publications.csv)',
+              '',
+              '<details><summary>Output</summary>',
+              '',
+              '```',
+              orcid,
+              '```',
+              '</details>',
+              '',
+              '### NIH RePORTER ingest (data/grants.csv, data/budget_years.csv)',
+              '',
+              '<details><summary>Output</summary>',
+              '',
+              '```',
+              nih,
+              '```',
+              '</details>',
+              '',
+              '_Report-only run -- nothing was written to any CSV and nothing was committed. ' +
+              'Apply any changes by hand (or via the `add-academic-entry` skill), then run ' +
+              '`python3 scripts/validate_csvs.py`._',
+            ].join('\n');
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Monthly data refresh -- ${date}`,
+              body,
+            });
+
+      - name: Fail the run if the dashboard didn't render
+        if: steps.render.outputs.status == 'failure'
+        run: exit 1
