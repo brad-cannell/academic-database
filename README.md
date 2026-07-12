@@ -192,7 +192,11 @@ served the same purpose.
   where the two disagreed on funding/publications). `scripts/validate_csvs.py` passes clean.
 - **Phase 3 — done.** `dashboard/index.qmd` renders cleanly with `quarto render
   dashboard/index.qmd` and has been visually verified across all four pages (Overview,
-  Funding, Publications, Teaching & Mentoring).
+  Funding, Publications, Teaching & Mentoring). It is also auto-published to GitHub Pages by
+  `.github/workflows/publish-dashboard.yml` on every push to `main` that touches `dashboard/`
+  or `data/` (or via manual dispatch) — live at
+  <https://brad-cannell.github.io/academic-database/>. `quarto render` remains the way to
+  preview changes locally before pushing.
 - **Phase 4 — done.** The `add-academic-entry` skill (paste a citation/award notice/CV
   bullet, get a previewed CSV row, confirm, auto-validate) is built. ORCID/PubMed ingest
   (`scripts/ingest_orcid_pubmed.py`) is also built and has backfilled DOI/PMID values for
