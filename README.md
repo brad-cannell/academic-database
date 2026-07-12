@@ -185,17 +185,18 @@ served the same purpose.
 
 ## Status
 
+- **Phase 0 — done.** Google Sheet and CV both audited; data model is final.
 - **Phase 1 — done.** Repo scaffolding — schema defined, CSVs created.
 - **Phase 2 — done.** Data migrated from the Google Sheet and CV into all 14 CSVs (CV wins
   where the two disagreed on funding/publications). `scripts/validate_csvs.py` passes clean.
-- **Phase 3 — built, not yet rendered.** `dashboard/index.qmd` (headline counts by year,
-  funding summary, publications table, ongoing teaching/mentoring/service tables) exists and
-  its R logic has been checked against the live data, but it hasn't been rendered to HTML
-  yet — Quarto wasn't installable in the session that built it. Run
-  `quarto render dashboard/index.qmd` locally to finish this phase.
-- **Phase 4 — first step done.** The `add-academic-entry` skill (paste a citation/award
+- **Phase 3 — done.** `dashboard/index.qmd` renders cleanly with `quarto render
+  dashboard/index.qmd` and has been visually verified across all four pages (Overview,
+  Funding, Publications, Teaching & Mentoring).
+- **Phase 4 — in progress.** The `add-academic-entry` skill (paste a citation/award
   notice/CV bullet, get a previewed CSV row, confirm, auto-validate) is built. ORCID/PubMed
-  ingest, NIH RePORTER ingest, and a scheduled monthly refresh are not started.
+  ingest (`scripts/ingest_orcid_pubmed.py`) is also built and has backfilled DOI/PMID values
+  for existing publications from ORCID's public API; NIH RePORTER ingest and a scheduled
+  monthly refresh are not started.
 - **Phase 5 — not started.** Retire the Google Sheet once this system has handled a full
   month of real updates.
 
