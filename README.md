@@ -195,8 +195,12 @@ served the same purpose.
 - **Phase 4 — in progress.** The `add-academic-entry` skill (paste a citation/award
   notice/CV bullet, get a previewed CSV row, confirm, auto-validate) is built. ORCID/PubMed
   ingest (`scripts/ingest_orcid_pubmed.py`) is also built and has backfilled DOI/PMID values
-  for existing publications from ORCID's public API; NIH RePORTER ingest and a scheduled
-  monthly refresh are not started.
+  for existing publications from ORCID's public API. NIH RePORTER ingest
+  (`scripts/ingest_nih_reporter.py`) is also built — a preview-only reconciliation report
+  (never writes to any CSV) that already caught and fixed three real `grants.csv` errors on
+  its first run: a stale award number and program-name-instead-of-project-title for the
+  Roybal Center grant, and two no-cost-extension end dates that hadn't been updated. A
+  scheduled monthly refresh is not started.
 - **Phase 5 — not started.** Retire the Google Sheet once this system has handled a full
   month of real updates.
 
