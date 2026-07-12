@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Brad Cannell">
+
+<title>Academic Activity Dashboard</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-459a4e776c836dbc5abd322d5b73eae4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-dark-459a4e776c836dbc5abd322d5b73eae4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-459a4e776c836dbc5abd322d5b73eae4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/quarto-dashboard/quarto-dashboard.js"></script>
+<script src="index_files/libs/quarto-dashboard/stickythead.js"></script>
+
+
+
+<script src="index_files/libs/quarto-dashboard/web-components.js" type="module"></script>
+<script src="index_files/libs/quarto-dashboard/components.js"></script>
+
+
+
+</head>
+
+<body class="quarto-dashboard dashboard-fill fullcontent quarto-light">
+
+<header id="quarto-dashboard-header">
+<nav class="navbar navbar-expand-md slim" data-bs-theme="dark">
+  <div class="navbar-container container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-controls="dashboard-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>    
+
+
+    <div class="navbar-brand-container">
+
+
+      <div class="navbar-title">
+        <div class="navbar-title-text"><a href="#">Academic Activity Dashboard</a></div>
+        
+        <div class="navbar-author">Brad Cannell</div>
+      </div>
+    </div>
+<div id="dashboard-collapse" class="navbar-collapse collapse"><ul class="navbar-nav navbar-nav-scroll me-auto" role="tablist"><li class="nav-item" role="presentation"><a id="tab-overview" class="nav-link active" data-bs-toggle="tab" role="tab" data-bs-target="#overview" data-scrolling="false" href="#overview" aria-controls="overview" aria-selected="true"><span class="nav-link-text">Overview</span></a></li><li class="nav-item" role="presentation"><a id="tab-funding" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#funding" data-scrolling="false" href="#funding" aria-controls="funding" aria-selected="false"><span class="nav-link-text">Funding</span></a></li><li class="nav-item" role="presentation"><a id="tab-publications" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#publications" data-scrolling="false" href="#publications" aria-controls="publications" aria-selected="false"><span class="nav-link-text">Publications</span></a></li><li class="nav-item" role="presentation"><a id="tab-teaching-mentoring" class="nav-link" data-bs-toggle="tab" role="tab" data-bs-target="#teaching-mentoring" data-scrolling="false" href="#teaching-mentoring" aria-controls="teaching-mentoring" aria-selected="false"><span class="nav-link-text">Teaching &amp; Mentoring</span></a></li></ul></div></div>
+</nav>
+</header>
+<div class="page-layout-custom quarto-dashboard-content bslib-gap-spacing html-fill-container bslib-page-fill quarto-dashboard-pages">  
+
+<div class="bslib-grid-item html-fill-item tab-content bslib-grid" data-layout="fill" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div id="overview" class="dashboard-page tab-pane show active html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-overview">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 20fr) minmax(3em, 40fr) minmax(3em, 40fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-primary showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-journal-text"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Publications
+</p>
+<p class="value-box-value">
+67
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-success showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-cash-coin"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Funded Grants
+</p>
+<p class="value-box-value">
+3
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-success showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-piggy-bank"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Total Funding
+</p>
+<p class="value-box-value">
+$31,996,020
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-info showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-mic"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Presentations
+</p>
+<p class="value-box-value">
+50
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-info showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-people"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Active Mentees
+</p>
+<p class="value-box-value">
+7
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 60fr) minmax(3em, 40fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Publications by Year" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+Publications by Year
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-dashboard-img-contain">
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div><div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Publications by Type" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+Publications by Type
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-dashboard-img-contain">
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Grant Funding by Start Year" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+Grant Funding by Start Year
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-dashboard-img-contain">
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+</div>
+<div id="funding" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-funding">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 20fr) minmax(3em, 80fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-success showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-check-circle"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Funded (active)
+</p>
+<p class="value-box-value">
+3
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-secondary showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-archive"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Completed
+</p>
+<p class="value-box-value">
+13
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-primary showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-award"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+PI / Site PI Grants
+</p>
+<p class="value-box-value">
+7
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="All Grants" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+All Grants
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 68%">
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 8%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 2%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Title</th>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Sponsor</th>
+<th style="text-align: left;">Award #</th>
+<th style="text-align: left;">Status</th>
+<th style="text-align: left;">Total Cost</th>
+<th style="text-align: left;">Start</th>
+<th style="text-align: left;">End</th>
+<th style="text-align: left;">Effort %</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Detection of Elder mistreatment Through Emergency Care Technicians - Revised for Primary Care (DETECT-RPC)</td>
+<td style="text-align: left;">PI</td>
+<td style="text-align: left;">NIA</td>
+<td style="text-align: left;">R33AG078523</td>
+<td style="text-align: left;">funded</td>
+<td style="text-align: left;">$4,664,014</td>
+<td style="text-align: left;">2024-08-31</td>
+<td style="text-align: left;">2027-08-31</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Edward R. Roybal Centers for Translational Research in the Behavioral and Social Sciences of Aging</td>
+<td style="text-align: left;">MPI</td>
+<td style="text-align: left;">NIA</td>
+<td style="text-align: left;">P30AG077109</td>
+<td style="text-align: left;">funded</td>
+<td style="text-align: left;">$5,850,000</td>
+<td style="text-align: left;">2024-08-15</td>
+<td style="text-align: left;">2029-05-31</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Detection of Elder mistreatment Through Emergency Care Technicians - Revised for Primary Care (DETECT-RPC)</td>
+<td style="text-align: left;">PI</td>
+<td style="text-align: left;">NIA</td>
+<td style="text-align: left;">R61AG078523</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$1,248,054</td>
+<td style="text-align: left;">2022-09-15</td>
+<td style="text-align: left;">2024-08-31</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">National Collaboratory to Address Elder Mistreatment in the Emergency Department: Phase III</td>
+<td style="text-align: left;">Co-I</td>
+<td style="text-align: left;">JAH</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">funded</td>
+<td style="text-align: left;">$247,000</td>
+<td style="text-align: left;">2021-01-01</td>
+<td style="text-align: left;">2027-12-31</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Building Capacity to Improve Texas Adult Protective Services Financial Exploitation Investigations and Client Services</td>
+<td style="text-align: left;">Co-I</td>
+<td style="text-align: left;">ACL</td>
+<td style="text-align: left;">HHS-2019-ACL-AOA-EJSG-0350</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$974,000</td>
+<td style="text-align: left;">2020-01-01</td>
+<td style="text-align: left;">2022-12-31</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Leveraging prehospital care to promote older adults’ health and safety: An elder mistreatment training curriculum for emergency medical service providers</td>
+<td style="text-align: left;">Consultant</td>
+<td style="text-align: left;">RRF</td>
+<td style="text-align: left;">2019-040</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">2019-07-15</td>
+<td style="text-align: left;">2021-01-15</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Detection of Elder abuse Through Emergency Care Technicians (DETECT)</td>
+<td style="text-align: left;">PI</td>
+<td style="text-align: left;">NIA</td>
+<td style="text-align: left;">R01AG059993</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$1,614,750</td>
+<td style="text-align: left;">2018-09-15</td>
+<td style="text-align: left;">2025-05-30</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Defining Late-Life Poly-victimization and Identifying Associated Mental and Physical Health Symptoms</td>
+<td style="text-align: left;">Co-I</td>
+<td style="text-align: left;">NIJ</td>
+<td style="text-align: left;">2017-VF-GX-0001</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$271,822</td>
+<td style="text-align: left;">2018-01-01</td>
+<td style="text-align: left;">2019-12-31</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mHealth to Increase Service Utilization in Recently Incarcerated Homeless Adults</td>
+<td style="text-align: left;">Site PI</td>
+<td style="text-align: left;">NIMHD</td>
+<td style="text-align: left;">R01MD010733</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$3,326,084</td>
+<td style="text-align: left;">2017-09-26</td>
+<td style="text-align: left;">2024-05-31</td>
+<td style="text-align: left;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moving to Improve Chronic Back Pain and Depression in Older Adults (MOTIVATE)</td>
+<td style="text-align: left;">Site PI</td>
+<td style="text-align: left;">VA</td>
+<td style="text-align: left;">VA HSR&amp;D CDA-2</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$996,520</td>
+<td style="text-align: left;">2016-10-01</td>
+<td style="text-align: left;">2022-04-01</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Technology Enhanced Screening and Supportive Assistance (TESSA)</td>
+<td style="text-align: left;">Co-I</td>
+<td style="text-align: left;">OWH</td>
+<td style="text-align: left;">ASTWH150033-01-00</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$2,199,999</td>
+<td style="text-align: left;">2015-08-15</td>
+<td style="text-align: left;">2018-07-31</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Workforce Enhancement Healthy Aging and Independent Living (WE HAIL)</td>
+<td style="text-align: left;">Key Personnel</td>
+<td style="text-align: left;">HRSA</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$2,550,000</td>
+<td style="text-align: left;">2015-07-01</td>
+<td style="text-align: left;">2018-06-30</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Development of a Brief Elder Abuse and Neglect Screener for Emergency Medical Services: Detection of Elder abuse Through Emergency Care Technicians (DETECT)</td>
+<td style="text-align: left;">PI</td>
+<td style="text-align: left;">NIJ</td>
+<td style="text-align: left;">2014-MU-CX-0102</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$378,519</td>
+<td style="text-align: left;">2015-01-01</td>
+<td style="text-align: left;">2018-12-31</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Medicaid 1115 Waiver - Texas Health Care Transformation and Quality Improvement Program (Delivery System Reform Incentive Payment Project): Managing Chronically Ill Medicaid Patients Using Interventional Telehealth</td>
+<td style="text-align: left;">PI</td>
+<td style="text-align: left;">CMS</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$5,893,112</td>
+<td style="text-align: left;">2013-06-01</td>
+<td style="text-align: left;">2017-12-31</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Florida Office on Disability &amp; Health Web-based Health Care Proxy Survey</td>
+<td style="text-align: left;">Key Personnel</td>
+<td style="text-align: left;">FDDC</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$14,476</td>
+<td style="text-align: left;">2009-01-05</td>
+<td style="text-align: left;">2010-06-30</td>
+<td style="text-align: left;">50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Florida Disability &amp; Health Program (state capacity building)</td>
+<td style="text-align: left;">Key Personnel</td>
+<td style="text-align: left;">CDC</td>
+<td style="text-align: left;">U59 DD000273</td>
+<td style="text-align: left;">completed</td>
+<td style="text-align: left;">$1,767,670</td>
+<td style="text-align: left;">2007-07-01</td>
+<td style="text-align: left;">2012-03-31</td>
+<td style="text-align: left;">50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+</div>
+<div id="publications" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-publications">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="All Publications" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+All Publications
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 47%">
+<col style="width: 43%">
+<col style="width: 4%">
+<col style="width: 1%">
+<col style="width: 1%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Year</th>
+<th style="text-align: left;">Title</th>
+<th style="text-align: left;">Journal</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Position</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2026</td>
+<td style="text-align: left;">Adaptation of DETECT for Use in Home-Based Primary Care: Clinician Perspectives</td>
+<td style="text-align: left;">Journal of the American Geriatrics Society</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2026</td>
+<td style="text-align: left;">Changes in Internet Search Term Popularity in Elder Mistreatment (2018-2023): Infodemiology Study of Google Trends Data</td>
+<td style="text-align: left;">Journal of the American Geriatrics Society</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2025</td>
+<td style="text-align: left;">How neighborhood socioeconomic status, green space, and walkability are associated with risk for fracture among postmenopausal women</td>
+<td style="text-align: left;">JBMR Plus</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2025</td>
+<td style="text-align: left;">Detection of Elder Abuse Through Emergency Care Technicians Screening Tool Revision for Home-Based Primary Care (DETECT-RPC): a cluster randomised controlled trial study protocol</td>
+<td style="text-align: left;">BMJ Open</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">Exploring the Association Between Intravenous Lorazepam and Mortality Among Older Hospitalized Patients With and Without Cognitive Impairment</td>
+<td style="text-align: left;">Cureus</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">Does the primary tumor site drive biology for patients with synovial sarcoma?</td>
+<td style="text-align: left;">American Journal of Clinical Oncology</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">Elder Mistreatment Documentation by Prehospital Clinicians: An Analysis of the National Emergency Medical Services Information System Database</td>
+<td style="text-align: left;">Prehospital Emergency Care</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">Epidemiological trends of synovial sarcoma by primary tumor sites in the US from 2000 to 2020</td>
+<td style="text-align: left;">Cancer Epidemiology</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">Increasing interest in geriatric medicine through participation of pre-medical students in a specialized HELP program</td>
+<td style="text-align: left;">Journal of the American Geriatrics Society</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2024</td>
+<td style="text-align: left;">A Collaboration Between Adult Protective Services and Forensic Accounting Examiners to Investigate Complex Financial Exploitation: Formative Evaluation Findings</td>
+<td style="text-align: left;">Journal of Elder Abuse and Neglect</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">Caregiving and All-Cause Mortality in Postmenopausal Women: Findings from The Women’s Health Initiative</td>
+<td style="text-align: left;">Journal of the American Geriatrics Society</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">Immunoassay Urine Drug Testing among Patients Receiving Opioids at a Safety-Net Palliative Medicine Clinic</td>
+<td style="text-align: left;">Cancers</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">Relations between distress tolerance and psychosocial variables in adults experiencing homelessness</td>
+<td style="text-align: left;">Journal of Social Distress and Homelessness</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">The Prevalence and Perceived Utility of Mobile Health Technology Among Recently Incarcerated Homeless Adults</td>
+<td style="text-align: left;">Journal of Technology in Behavioral Health</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2023</td>
+<td style="text-align: left;">R for Epidemiology</td>
+<td style="text-align: left;">Self-Published</td>
+<td style="text-align: left;">book</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Brain Capital: A transdisciplinary public health framework in the face of an aging society</td>
+<td style="text-align: left;">The American Journal of Geriatric Psychiatry</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Evaluation of Social Isolation, Loneliness, and Cardiovascular Disease Among Older Women in the US</td>
+<td style="text-align: left;">JAMA Network Open</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Acceptability of a real-time notification of stress and access to self-help therapies among law enforcement officers</td>
+<td style="text-align: left;">BMC Public Health</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2022</td>
+<td style="text-align: left;">Popularity of the Delta-8 THC on Internet across US states, 2021</td>
+<td style="text-align: left;">American Journal of Public Health</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">Reliability of the Longitudinal Experts All Data (LEAD) Methodology for Determining the Presence of Elder Abuse</td>
+<td style="text-align: left;">Journal of Elder Abuse and Neglect</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">The Network Effect on Inter-facility Transfers Among Regional Stroke Certified Hospitals</td>
+<td style="text-align: left;">Journal of Stroke and Cerebrovascular Diseases</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">The sunscreen for kindergarteners (SKIN) study trial protocol</td>
+<td style="text-align: left;">Contemporary Clinical Trials</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">Neglect and Self-Neglect (chapter 8)</td>
+<td style="text-align: left;">In: Geffner R, Vieth V, Vaughan-Eden V, Rosenbaum A, Hamberger LK, White J (Eds) Handbook of Interpersonal Violence Across the Lifespan. National Partnership to End Interpersonal Violence Across the Lifespan (NPEIV). Springer, Cham</td>
+<td style="text-align: left;">chapter</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">Validation of the detection of elder abuse through emergency care technicians (DETECT) screening tool: a study protocol</td>
+<td style="text-align: left;">BMJ Open</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">Barriers to eating are associated with poor physical function in older women</td>
+<td style="text-align: left;">Preventive Medicine</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">EAGLE and DETECT-Innovative Tools Helping First Responders to Combat Elder Abuse</td>
+<td style="text-align: left;">Generations</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">Evaluation of the DETECT Elder Mistreatment Screening Tool</td>
+<td style="text-align: left;">JAMA Network Open</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">Socioecological Indicators of Senior Financial Exploitation: An Application of Data Science to 8,800 Substantiated Mistreatment Cases</td>
+<td style="text-align: left;">Journal of Elder Abuse &amp; Neglect</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Characterization and comparison of physical and mental health profiles and Department of Veterans Affairs health care utilization patterns among Operation Iraqi Freedom/Operation Enduring Freedom women veterans in Puerto Rico versus the United States</td>
+<td style="text-align: left;">Women’s Health Issues</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Associations of parental ages at childbirth with healthy aging among women</td>
+<td style="text-align: left;">Maturitas</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Is interpersonal abuse associated with sexual (dis)satisfaction among postmenopausal women?</td>
+<td style="text-align: left;">Women’s Health Issues</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">The role of military experience on officer-involved shootings: Towards a constructive research agenda</td>
+<td style="text-align: left;">Journal of Public Health</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2019</td>
+<td style="text-align: left;">Pilot Testing the Detection of Elder Abuse Through Emergency Care Technicians (DETECT) Screening Tool: Results from the DETECT Pilot Project</td>
+<td style="text-align: left;">Journal of Elder Abuse and Neglect</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">Does Military Veteran Status and Deployment History Impact Officer Involved Shootings?</td>
+<td style="text-align: left;">Journal of Public Health</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">Parental Longevity Predicts Healthy Ageing Among Postmenopausal Women</td>
+<td style="text-align: left;">Age and Ageing</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">Trajectories of Relative Performance Across Two Measures of Global Cognitive Function</td>
+<td style="text-align: left;">Journal of the American Geriatrics Society</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">White Paper: First Annual Texas Conference on Elder Financial Abuse and Exploitation</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">Alcohol retail sales licenses and sexually transmitted infections in Texas counties, 2008-2015</td>
+<td style="text-align: left;">The American Journal of Drug and Alcohol Abuse</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2018</td>
+<td style="text-align: left;">Comparing Methods of Misclassification Correction for Studies of Adolescent Alcohol Use</td>
+<td style="text-align: left;">The American Journal of Drug and Alcohol Abuse</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Associations between Self-Reported Physical Activity and Physical Performance Measures Over Time in Postmenopausal Women: The Women’s Health Initiative</td>
+<td style="text-align: left;">Journal of the American Geriatrics Society</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2017</td>
+<td style="text-align: left;">Factors associated with self-estimated breath alcohol concentration among bar patrons</td>
+<td style="text-align: left;">Alcoholism Clinical and Experimental Research</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">Barriers in Detecting Elder Abuse among Emergency Medical Technicians: A Qualitative Analysis</td>
+<td style="text-align: left;">BMC Emergency Medicine</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">Towards the Development of a Screening Tool to Enhance the Detection of Elder Abuse and Neglect by Emergency Medical Technicians: A Qualitative Study</td>
+<td style="text-align: left;">BMC Emergency Medicine</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">Alcohol mixed with energy drink: use may be a consequence of heavy drinking</td>
+<td style="text-align: left;">Addictive Behaviors</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">last</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2016</td>
+<td style="text-align: left;">Looming disease burden associated with the aging process: implications for occupational therapy (chapter 3)</td>
+<td style="text-align: left;">In: Barney KF, Perkinson MA (Eds) Occupational therapy with aging adults. St.&nbsp;Louis, USA: Elsevier</td>
+<td style="text-align: left;">chapter</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">The Disproportionate Prevalence Rate of Prisoners with Disabilities: Evidence from a Nationally Representative Sample</td>
+<td style="text-align: left;">Journal of Disability Policy Studies</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Cross-sectional and longitudinal risk of physical impairment in a cohort of postmenopausal women who experience physical and verbal abuse</td>
+<td style="text-align: left;">BMC Women’s Health</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">The Cross-sectional Association Between Severity of Non-Cognitive Disability and Self-Reported Worsening Memory</td>
+<td style="text-align: left;">Disability and Health Journal</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2015</td>
+<td style="text-align: left;">Self-efficacy to drive while intoxicated: Insights into the persistence of alcohol-impaired driving</td>
+<td style="text-align: left;">Alcoholism Clinical and Experimental Research</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2014</td>
+<td style="text-align: left;">U.S. population estimates and correlates of sexual abuse of community-dwelling older adults</td>
+<td style="text-align: left;">Journal of Elder Abuse &amp; Neglect</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2013</td>
+<td style="text-align: left;">Tobacco in Florida: comparisons between adults living with and without disabilities</td>
+<td style="text-align: left;">Disability and Health Journal</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">Association of blood cotinine level with cognitive and physical performance in older adults</td>
+<td style="text-align: left;">Environmental Research</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2012</td>
+<td style="text-align: left;">Doubly robust testing and estimation of model-adjusted effect-measure modification with complex survey data</td>
+<td style="text-align: left;">Statistics in Medicine</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Breast Cancer Screening and Healthcare Access Among Women Living with Disabilities in Florida</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Disability Perceptions and Experiences in the State of Florida: 2010 Florida Behavioral Risk Factor Surveillance System (BRFSS)</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Adult disability prevalence: 2010 Florida Behavioral Risk Factor Surveillance System</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Results of a proxy respondent web-survey of Florida adults with disability: 2009-2010</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Age group differences in health care access for people with disabilities: Are young adults at increased risk? Results from the Florida Behavioral Risk Factor Surveillance System</td>
+<td style="text-align: left;">Journal of Adolescent Health</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Results of a web-survey of Florida adults with disability: 2009-2010</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2011</td>
+<td style="text-align: left;">Disability and access to health care in Florida: Results from the 2009 behavioral risk factor surveillance system</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Tobacco use and correlates: A comparison of Floridians living with and without disabilities</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Breast cancer screening patterns among women with disabilities in Florida, 2007-2008</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Testing &amp; estimating model-adjusted effect-measure modification using marginal structural models &amp; complex survey data</td>
+<td style="text-align: left;">American Journal of Epidemiology</td>
+<td style="text-align: left;">peer_reviewed_article</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Caregiving and older Floridians</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">County-level demographics, health characteristics and health behaviors of Florida residents aged 60 and over: Results from the 2007 Behavioral Risk Factor Surveillance System</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Interim report: A web-based survey of the health of Floridians with disabilities</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">middle</td>
+<td style="text-align: left;">published</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2010</td>
+<td style="text-align: left;">Access to health care and health behaviors among young adults with and without disability in Florida: A report from the Florida Behavioral Risk Factor Surveillance System 2007</td>
+<td style="text-align: left;">Florida Office on Disability and Health</td>
+<td style="text-align: left;">other</td>
+<td style="text-align: left;">first</td>
+<td style="text-align: left;">published</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+</div>
+</div>
+<div id="teaching-mentoring" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-teaching-mentoring">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 20fr) minmax(3em, 80fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr) minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-primary showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-mortarboard"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Ongoing Courses
+</p>
+<p class="value-box-value">
+1
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-info showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-people-fill"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Active Mentees
+</p>
+<p class="value-box-value">
+7
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card valuebox cell html-fill-item html-fill-container bslib-card bslib-value-box bg-secondary showcase-left-center" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card-body html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container value-box-grid">
+<div class="value-box-showcase html-fill-item html-fill-container">
+
+<i class="bi bi-briefcase"></i></div>
+<div class="value-box-area">
+<p class="value-box-title">
+Active Service Roles
+</p>
+<p class="value-box-value">
+3
+</p>
+</div>
+</div>
+</div>
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 50fr) minmax(3em, 50fr);
+grid-auto-rows: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Ongoing Teaching" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+Ongoing Teaching
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 53%">
+<col style="width: 5%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Institution</th>
+<th style="text-align: left;">Course</th>
+<th style="text-align: right;">Since</th>
+<th style="text-align: left;">Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Texas Christian University</td>
+<td style="text-align: left;">HCHS 80313 — Introduction to R Programming and Data Management</td>
+<td style="text-align: right;">2026</td>
+<td style="text-align: left;">instructor-of-record</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Active Mentoring" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+Active Mentoring
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Mentee</th>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Context</th>
+<th style="text-align: right;">Since</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tim Clark</td>
+<td style="text-align: left;">primary-advisor</td>
+<td style="text-align: left;">PhD</td>
+<td style="text-align: right;">2022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Michelle Pennington</td>
+<td style="text-align: left;">primary-advisor</td>
+<td style="text-align: left;">PhD</td>
+<td style="text-align: right;">2022</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rebecca Molsberry</td>
+<td style="text-align: left;">primary-advisor</td>
+<td style="text-align: left;">PhD</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rania Abdelkhaleq</td>
+<td style="text-align: left;">ra-ta-intern</td>
+<td style="text-align: left;">PhD</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cailyn Meyer</td>
+<td style="text-align: left;">ra-ta-intern</td>
+<td style="text-align: left;">MS</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Duy Anh Nguyen</td>
+<td style="text-align: left;">ra-ta-intern</td>
+<td style="text-align: left;">MBA</td>
+<td style="text-align: right;">2026</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rowan Schlotterbeck</td>
+<td style="text-align: left;">ra-ta-intern</td>
+<td style="text-align: left;">Undergraduate</td>
+<td style="text-align: right;">2026</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div><div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Active Service" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+Active Service
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 70%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Organization</th>
+<th style="text-align: left;">Role</th>
+<th style="text-align: left;">Category</th>
+<th style="text-align: right;">Since</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Texas Elder Justice Coalition</td>
+<td style="text-align: left;">Member</td>
+<td style="text-align: left;">community</td>
+<td style="text-align: right;">2024</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tarrant County Adult Protective Services Community Board</td>
+<td style="text-align: left;">Member</td>
+<td style="text-align: left;">community</td>
+<td style="text-align: right;">2019</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TCU Departmental Promotion and Tenure Committee</td>
+<td style="text-align: left;">Chair</td>
+<td style="text-align: left;">university</td>
+<td style="text-align: right;">2025</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="Ongoing Reviewer Relationships" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title"><span style="display: inline">
+Ongoing Reviewer Relationships
+</span></div></div>
+<div class="card-body html-fill-item html-fill-container">
+<div class="cell-output-display html-fill-item html-fill-container">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Journal</th>
+<th style="text-align: left;">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Journal of Elder Abuse and Neglect</td>
+<td style="text-align: left;">editorial-board</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Journal of the American Geriatrics Society</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Journal of Aging and Health</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Journal of Elder Abuse and Neglect</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Journal of Gerontology: Medical Sciences</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Journal of Adolescent Health</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Disability and Health Journal</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nicotine &amp; Tobacco Research</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Infectious Diseases in Obstetrics and Gynecology</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alcoholism Clinical and Experimental Research</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Journal of Public Health</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Aggression and Violent Behavior</td>
+<td style="text-align: left;">ad-hoc-reviewer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">rOpenSci</td>
+<td style="text-align: left;">software-reviewer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /container fluid -->
+
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (_event) {
+  if (window.bslib.Card) {
+    window.bslib.Card.initializeAllCards();
+  }
+}); 
+</script>
+  
+
+
+
+</body></html>

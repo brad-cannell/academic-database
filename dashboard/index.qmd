@@ -5,7 +5,6 @@ format:
   dashboard:
     theme: cosmo
     nav-buttons: []
-    logo: null
 execute:
   echo: false
   warning: false
@@ -82,7 +81,7 @@ sum(grants$status == "funded")
 
 ```{r}
 #| content: valuebox
-#| title: "Total Funding (funded + completed)"
+#| title: "Total Funding"
 #| icon: piggy-bank
 #| color: success
 money(sum(grants$total_cost[grants$status %in% c("funded", "completed")], na.rm = TRUE))
