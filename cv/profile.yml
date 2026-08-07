@@ -1,0 +1,96 @@
+person:
+  name: Michael Bradley Cannell, PhD, MPH
+  affiliation: TCU Harris College Dean's Office
+  address:
+    - 2800 W. Bowie Street, Ste. 2101
+    - Fort Worth, TX 76109
+  phone_office: 817-257-1426
+  # The academic-database repo is public, so the personal mobile number from
+  # the Word CV is intentionally omitted unless Brad approves publishing it.
+  phone_mobile:
+  email: brad.cannell@tcu.edu
+
+education:
+  - credential: Graduate Certificate
+    year: 2016
+    field: Predictive Analytics
+    institution: University of Maryland University College
+    location: Adelphi, MD
+  - credential: PhD
+    year: 2013
+    field: Epidemiology
+    institution: University of Florida
+    location: Gainesville, FL
+  - credential: Graduate Certificate
+    year: 2013
+    field: Gerontology
+    institution: University of Florida
+    location: Gainesville, FL
+  - credential: MPH
+    year: 2009
+    field: Public Health – Epidemiology
+    institution: University of Louisville
+    location: Louisville, KY
+  - credential: BA
+    year: 2005
+    field: Interdisciplinary (Political Science / Marketing)
+    institution: University of North Texas
+    location: Denton, TX
+
+professional_training:
+  - period: "2016"
+    description: Massachusetts Institute of Technology (MIT), Big Data and Social Analytics Certification, Cambridge, MA
+  - period: "2014"
+    description: National Institute on Aging (NIA) Butler-Williams Scholars Program, Bethesda, MD
+  - period: "2014"
+    description: SAS Base Programming for SAS 9 Certification, SAS Institute
+  - period: 2009–2012
+    description: Affiliated Scholar, Claude D. Pepper Older Americans Independence Center, University of Florida, Gainesville, FL
+  - period: "2009"
+    description: Regional Criminal & Epidemiology Investigations Workshop, Centers for Disease Control and Prevention and Federal Bureau of Investigation
+
+technical_skills:
+  languages_and_programming:
+    - CSS
+    - Git
+    - HTML
+    - JavaScript
+    - Python
+    - R
+    - SAS
+    - Shell
+    - SQL
+    - Stata
+  other_software:
+    - Camtasia
+    - FileMaker Pro
+    - Microsoft Office
+    - RapidMiner
+    - SPSS
+    - Tableau
+
+professional_experience:
+  - period: 2025–Present
+    description: Eleanor & Murray Zoota Endowed Professor in Neurodegenerative Research (Tenured), Department of Applied Health Sciences, Harris College of Nursing and Health Sciences, Texas Christian University, Fort Worth, TX.
+  - period: 2025–Present
+    description: Associate Dean for Research, Harris College of Nursing and Health Sciences, Texas Christian University, Fort Worth, TX.
+  - period: 2019–Present
+    description: Adjunct Associate Professor, Department of Internal Medicine, Division of Geriatric Medicine, UT Southwestern Medical Center, Dallas, TX.
+  - period: 2024–2025
+    description: Associate Professor (Tenured), University of Texas Health Science Center at Houston (UTHealth), Houston, TX. Division of Geriatric and Palliative Medicine, McGovern Medical School (55%); Department of Management, Policy, and Community Health, School of Public Health (25%); Department of Research, Cizik School of Nursing (20%). Elder Mistreatment Core Lead, UTHealth Institute on Aging. Director, Research Informatics Core, Cizik Nursing Research Institute.
+  - period: 2018–2024
+    description: Associate Professor (Tenured), Department of Epidemiology, Human Genetics and Environmental Sciences, University of Texas Health Science Center at Houston School of Public Health, Dallas, TX.
+  - period: 2014–2018
+    description: Assistant Professor (Tenure Track), Department of Biostatistics and Epidemiology, University of North Texas Health Science Center, Fort Worth, TX.
+  - period: 2012–2014
+    description: Director of the MPH program in Behavioral and Community Health, Department of Behavioral and Community Health, University of North Texas Health Science Center, Fort Worth, TX.
+  - period: 2009–2015
+    description: Environmental Science Officer / Detachment Executive Officer, 1437th Preventive Medicine Detachment, United States Army Reserves, Gainesville, FL.
+  - period: 2009–2012
+    description: Graduate Research Assistant, Department of Epidemiology and Biostatistics, University of Florida, Gainesville, FL.
+  - period: 2008–2009
+    description: Epidemiology Intern, Northern Kentucky Independent District Health Department, Edgewood, KY.
+  - period: 2008–2009
+    description: Preventive Medicine Specialist, United States Army Reserves, Maineville, OH.
+  - period: 2005–2008
+    description: Cavalry Scout / Cavalry Instructor, United States Army, Fort Knox, KY.

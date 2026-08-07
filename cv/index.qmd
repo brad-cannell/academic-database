@@ -1,0 +1,347 @@
+---
+format:
+  gfm:
+    toc: false
+    wrap: none
+output-file: michael-bradley-cannell-cv.md
+execute:
+  echo: false
+  warning: false
+  message: false
+execute-dir: file
+---
+
+```{r}
+# Load the two source surfaces used by this prototype. The profile file holds
+# slow-changing personal information; activity data remains in the validated
+# academic database so the CV cannot drift from the dashboard.
+profile <- yaml::read_yaml("profile.yml")
+awards <- readr::read_csv("../data/awards.csv", show_col_types = FALSE)
+grants <- readr::read_csv("../data/grants.csv", show_col_types = FALSE)
+memberships <- readr::read_csv("../data/professional_memberships.csv", show_col_types = FALSE)
+service <- readr::read_csv("../data/service.csv", show_col_types = FALSE)
+reviewers <- readr::read_csv("../data/reviewer_relationships.csv", show_col_types = FALSE)
+teaching <- readr::read_csv("../data/teaching.csv", show_col_types = FALSE)
+mentoring <- readr::read_csv("../data/mentoring.csv", show_col_types = FALSE)
+advising <- readr::read_csv("../data/advising_load.csv", show_col_types = FALSE)
+
+# Fail loudly if either source is unexpectedly empty. A generated CV that
+# silently drops a section would be more dangerous than a failed render.
+stopifnot(length(profile$person$name) == 1L, nzchar(profile$person$name))
+stopifnot(nrow(awards) > 0L)
+stopifnot(nrow(grants) > 0L, !anyDuplicated(grants$id))
+stopifnot(nrow(memberships) > 0L, nrow(service) > 0L, nrow(reviewers) > 0L)
+stopifnot(nrow(teaching) > 0L, nrow(mentoring) > 0L, nrow(advising) > 0L)
+
+# Convert blank granting-body values to an empty string before composing the
+# display text. This keeps the CSV schema unchanged and avoids rendering "NA".
+awards$granting_body[is.na(awards$granting_body)] <- ""
+awards$display_text <- ifelse(
+  nzchar(awards$granting_body),
+  paste0(awards$award_name, ", ", awards$granting_body),
+  awards$award_name
+)
+
+# Render a single year for ordinary honors and an en-dash range only when the
+# validated source supplies end_year. This avoids parsing prose in notes or
+# hard-coding a Quality Matters exception in the CV layer.
+awards$display_period <- ifelse(
+  is.na(awards$end_year),
+  as.character(awards$year),
+  paste0(awards$year, "–", awards$end_year)
+)
+awards <- awards[order(awards$year, decreasing = TRUE), ]
+
+# Prepare funding records using only validated database fields. Status controls
+# current/previous grouping, so the CV updates automatically when an award's
+# lifecycle changes in grants.csv.
+grants$cv_group <- ifelse(
+  grants$status == "funded",
+  "Current",
+  ifelse(grants$status == "completed", "Previous", "Other")
+)
+grants <- grants[order(as.Date(grants$start_date), decreasing = TRUE), ]
+
+# Expand the database's compact role vocabulary only in the presentation layer.
+# Unknown future values fall back to their stored text rather than disappearing.
+role_labels <- c(
+  "MPI" = "Multiple Principal Investigator",
+  "PI" = "Principal Investigator",
+  "Co-I" = "Co-Investigator",
+  "Site PI" = "Site Principal Investigator",
+  "Consultant" = "Consultant",
+  "Key Personnel" = "Key Personnel"
+)
+
+format_cv_date <- function(value) {
+  format(as.Date(value), "%m/%d/%Y")
+}
+
+format_cv_currency <- function(value) {
+  paste0("$", format(round(value), big.mark = ",", scientific = FALSE, trim = TRUE), " total")
+}
+
+# Format partial career-history dates consistently across memberships, service,
+# teaching, and mentoring. A missing end year means the activity is ongoing;
+# a one-year activity is shown once instead of as a repeated range.
+format_year_range <- function(start_year, end_year) {
+  ifelse(
+    is.na(end_year),
+    paste0(start_year, "–Present"),
+    ifelse(start_year == end_year, as.character(start_year), paste0(start_year, "–", end_year))
+  )
+}
+
+# Emit pipe tables through one helper so every generated section uses the same
+# Markdown behavior and none of the source records are manually duplicated.
+render_table <- function(data, column_names, align = NULL) {
+  if (nrow(data) == 0L) {
+    return(invisible(NULL))
+  }
+  if (is.null(align)) {
+    align <- rep("l", ncol(data))
+  }
+  cat(
+    knitr::kable(
+      data,
+      format = "pipe",
+      col.names = column_names,
+      align = align
+    ),
+    sep = "\n"
+  )
+  cat("\n\n")
+}
+
+render_grant_group <- function(group_name) {
+  group_rows <- grants[grants$cv_group == group_name, ]
+  if (nrow(group_rows) == 0L) {
+    return(invisible(NULL))
+  }
+
+  cat("### ", group_name, "\n\n", sep = "")
+  for (i in seq_len(nrow(group_rows))) {
+    grant <- group_rows[i, ]
+    list_marker <- paste0(i, ". ")
+    continuation_indent <- strrep(" ", nchar(list_marker))
+    header_parts <- c(
+      paste(format_cv_date(grant$start_date), format_cv_date(grant$end_date), sep = "–")
+    )
+    if (!is.na(grant$award_number) && nzchar(grant$award_number)) {
+      header_parts <- c(header_parts, grant$award_number)
+    }
+    if (!is.na(grant$total_cost)) {
+      header_parts <- c(header_parts, format_cv_currency(grant$total_cost))
+    }
+
+    cat(list_marker, "**", paste(header_parts, collapse = " | "), "**\n\n", sep = "")
+    cat(continuation_indent, grant$sponsor, ": “", grant$title, "”\n\n", sep = "")
+    if (!is.na(grant$project_summary) && nzchar(grant$project_summary)) {
+      cat(continuation_indent, "Summary: ", grant$project_summary, "\n\n", sep = "")
+    }
+    if (!is.na(grant$lead_investigator) && nzchar(grant$lead_investigator)) {
+      cat(continuation_indent, grant$lead_investigator_role, ": ", grant$lead_investigator, "\n\n", sep = "")
+    }
+
+    role_label <- unname(role_labels[grant$role])
+    if (is.na(role_label)) {
+      role_label <- grant$role
+    }
+    effort_label <- if (!is.na(grant$effort_percent)) {
+      paste0(" (", format(grant$effort_percent, trim = TRUE), "%)")
+    } else {
+      ""
+    }
+    cat(continuation_indent, "Role: ", role_label, effort_label, "\n\n", sep = "")
+  }
+}
+
+# Prepare repeated display fields once. These derived columns belong in the CV
+# layer because they describe presentation, not new source facts.
+memberships$period <- format_year_range(memberships$start_year, memberships$end_year)
+memberships <- memberships[order(memberships$start_year, decreasing = TRUE), ]
+
+service$period <- format_year_range(service$start_year, service$end_year)
+service$organization_display <- ifelse(
+  is.na(service$notes) | !nzchar(service$notes),
+  service$organization,
+  paste0(service$organization, ". ", service$notes)
+)
+service <- service[order(service$start_year, decreasing = TRUE), ]
+
+teaching$period <- format_year_range(teaching$start_year, teaching$end_year)
+teaching$course_display <- paste0(teaching$course_code, " – ", teaching$course_title)
+teaching$details <- ifelse(
+  is.na(teaching$notes) | !nzchar(teaching$notes),
+  paste(teaching$department, teaching$course_display, sep = "; "),
+  paste(teaching$department, teaching$course_display, teaching$notes, sep = "; ")
+)
+teaching <- teaching[order(teaching$start_year, decreasing = TRUE), ]
+
+mentoring$period <- format_year_range(mentoring$start_year, mentoring$end_year)
+mentoring <- mentoring[order(mentoring$start_year, decreasing = TRUE), ]
+
+# Committee rows store other advisors in a consistent role_detail prefix. Brad-
+# advised rows are explicit booleans, so his name does not need to be duplicated
+# in the CSV. This is the only normalization needed for the committee display.
+mentoring$advisor_display <- ifelse(
+  mentoring$primary_advisor,
+  "Brad Cannell, PhD, MPH",
+  sub("^Primary Advisor: ", "", mentoring$role_detail)
+)
+```
+
+```{r, results='asis'}
+# Render the contact block from profile.yml. Markdown remains the reviewable
+# generated artifact; later passes can add DOCX-specific styling without
+# changing the underlying content source.
+cat("# ", profile$person$name, "\n\n", sep = "")
+cat(profile$person$affiliation, "  \n", sep = "")
+cat(profile$person$address[[1]], "  \n", sep = "")
+cat(profile$person$address[[2]], "  \n", sep = "")
+cat(profile$person$phone_office, " office", sep = "")
+if (!is.null(profile$person$phone_mobile) && nzchar(profile$person$phone_mobile)) {
+  cat(" | ", profile$person$phone_mobile, " mobile", sep = "")
+}
+cat("  \n")
+cat("[", profile$person$email, "](mailto:", profile$person$email, ")\n\n", sep = "")
+```
+
+## Honors and Awards
+
+```{r, results='asis'}
+# Use a plain Markdown table for the first thin slice. The generator displays
+# exactly what is in awards.csv and deliberately avoids CV-only exceptions.
+cat(
+  knitr::kable(
+    awards[c("display_period", "display_text")],
+    format = "pipe",
+    col.names = c("Year", "Honor or award"),
+    align = c("l", "l")
+  ),
+  sep = "\n"
+)
+```
+
+## Professional Memberships
+
+```{r, results='asis'}
+render_table(
+  memberships[c("period", "organization")],
+  c("Period", "Organization")
+)
+```
+
+## Service Activities
+
+```{r, results='asis'}
+# Preserve the CV's community/university/profession hierarchy while using the
+# database's current role roster and notes.
+service_group_labels <- c(
+  "community" = "Service to the Community",
+  "university" = "Service to the University",
+  "profession" = "Service to the Profession"
+)
+for (category in names(service_group_labels)) {
+  cat("### ", service_group_labels[[category]], "\n\n", sep = "")
+  group_rows <- service[service$category == category, c("period", "role", "organization_display")]
+  render_table(group_rows, c("Period", "Role", "Organization or activity"))
+}
+```
+
+### Editorial and Reviewing Activities
+
+```{r, results='asis'}
+review_group_labels <- c(
+  "editorial-board" = "Editorial Boards",
+  "ad-hoc-reviewer" = "Journal Reviews",
+  "software-reviewer" = "Software Reviews"
+)
+for (relationship_type in names(review_group_labels)) {
+  cat("#### ", review_group_labels[[relationship_type]], "\n\n", sep = "")
+  group_rows <- reviewers[reviewers$relationship_type == relationship_type, c("journal_or_venue", "status")]
+  render_table(group_rows, c("Journal or venue", "Status"))
+}
+```
+
+## Teaching Experience
+
+```{r, results='asis'}
+# Group courses by institution to retain the Word CV's teaching hierarchy. The
+# notes field carries the University of Florida teaching-assistant clarification.
+for (institution in unique(teaching$institution)) {
+  cat("### ", institution, "\n\n", sep = "")
+  group_rows <- teaching[teaching$institution == institution, c("period", "details")]
+  render_table(group_rows, c("Period", "Department and course"))
+}
+```
+
+## Student Mentoring
+
+### Advising Load
+
+```{r, results='asis'}
+# Render the granular advising history that replaced the Word CV's older two-
+# line summary. Counts therefore remain maintainable as new years are added.
+render_table(
+  advising[c("academic_year", "advisee_count")],
+  c("Academic year", "Advisees"),
+  c("l", "r")
+)
+```
+
+### Thesis and Dissertation Committees
+
+```{r, results='asis'}
+committee_rows <- mentoring[
+  mentoring$role %in% c("committee-member", "primary-advisor"),
+  c("mentee_name", "period", "degree_or_context", "advisor_display")
+]
+render_table(
+  committee_rows,
+  c("Name", "Period", "Degree", "Primary advisor")
+)
+```
+
+### Research Assistants, Teaching Assistants, and Interns
+
+```{r, results='asis'}
+assistant_rows <- mentoring[
+  mentoring$role == "ra-ta-intern",
+  c("mentee_name", "period", "degree_or_context", "current_status")
+]
+render_table(
+  assistant_rows,
+  c("Name", "Period", "Degree or context", "Current status")
+)
+```
+
+### Other Mentoring
+
+```{r, results='asis'}
+other_mentoring_labels <- c(
+  "external-mentee" = "External Mentees",
+  "postdoc-mentee" = "Postdoctoral Mentees",
+  "faculty-mentee" = "Faculty Mentees"
+)
+for (role in names(other_mentoring_labels)) {
+  cat("#### ", other_mentoring_labels[[role]], "\n\n", sep = "")
+  group_rows <- mentoring[
+    mentoring$role == role,
+    c("mentee_name", "period", "degree_or_context", "role_detail")
+  ]
+  render_table(
+    group_rows,
+    c("Name", "Period", "Context", "Mentorship role")
+  )
+}
+```
+
+## Funding
+
+```{r, results='asis'}
+# Render the two CV groups from grant status. Numbering restarts within each
+# group to match the current CV's section structure.
+render_grant_group("Current")
+render_grant_group("Previous")
+```

@@ -68,6 +68,9 @@ served the same purpose.
 | `total_cost` | total award amount |
 | `start_date`, `end_date` | ISO 8601 dates |
 | `effort_percent` | Brad's effort commitment on this grant |
+| `project_summary` | concise CV-ready description of the funded work |
+| `lead_investigator_role` | `PI` or `Director`; blank when Brad leads the award or no lead is recorded |
+| `lead_investigator` | lead investigator's name and credentials when applicable |
 
 ### `data/effort_by_year.csv`
 
@@ -171,6 +174,7 @@ served the same purpose.
 | column | description |
 |---|---|
 | `year` | year received |
+| `end_year` | final year when an award or certification spans a period; blank for a single-year honor |
 | `award_name` | award name |
 | `granting_body` | organization that granted the award |
 | `notes` | free text |
