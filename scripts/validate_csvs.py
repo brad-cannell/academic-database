@@ -85,7 +85,8 @@ SCHEMAS = {
         "columns": [
             "id", "award_number", "mechanism", "sponsor", "funder_abbreviation",
             "title", "role", "status", "total_cost", "start_date", "end_date",
-            "effort_percent",
+            "effort_percent", "project_summary", "lead_investigator_role",
+            "lead_investigator",
         ],
         "id_column": "id",
         "constraints": {
@@ -94,6 +95,7 @@ SCHEMAS = {
             "start_date": date(),
             "end_date": date(),
             "effort_percent": number(),
+            "lead_investigator_role": enum("PI", "Director"),
         },
         "date_ranges": [("start_date", "end_date")],
     },
@@ -197,10 +199,12 @@ SCHEMAS = {
         },
     },
     "awards.csv": {
-        "columns": ["year", "award_name", "granting_body", "notes"],
+        "columns": ["year", "end_year", "award_name", "granting_body", "notes"],
         "constraints": {
             "year": year(),
+            "end_year": year(),
         },
+        "year_ranges": [("year", "end_year")],
     },
     "professional_memberships.csv": {
         "columns": ["organization", "abbreviation", "start_year", "end_year", "notes"],
