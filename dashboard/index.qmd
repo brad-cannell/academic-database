@@ -65,10 +65,10 @@ blank_na <- function(x) tidyr::replace_na(x, "")
 
 ```{r}
 #| content: valuebox
-#| title: "Publications"
+#| title: "Peer-Reviewed Publications"
 #| icon: journal-text
 #| color: primary
-nrow(publications)
+sum(publications$publication_type == "peer_reviewed_article")
 ```
 
 ```{r}
