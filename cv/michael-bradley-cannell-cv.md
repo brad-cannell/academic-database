@@ -59,6 +59,7 @@ Fort Worth, TX 76109
 
 | Period | Role | Organization or activity |
 |:---|:---|:---|
+| 2026–Present | Member | Harris College Curriculum Committee |
 | 2025–Present | Chair | TCU Departmental Promotion and Tenure Committee |
 | 2024–2025 | Director (5%) | UTHealth Cizik Nursing Research Institute Research Informatics Core |
 | 2024–2025 | EM Lead (10%) | UTHealth Institute on Aging |
