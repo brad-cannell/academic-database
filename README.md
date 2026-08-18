@@ -32,6 +32,10 @@ served the same purpose.
 - **Controlled vocabularies** are documented per-entity below. Use these exact values (case
   and spelling) so downstream filtering/grouping in the dashboard works without cleanup.
 
+## Updating academic activity and the CV
+
+Use the [`Updating Academic Database and CV` SOP](https://github.com/brad-cannell/knowledge-workbench/blob/main/Guides%20and%20SOPs/Personal/Updating%20Academic%20Database%20and%20CV.md) for the standard capture, validation, CV-rendering, review, and commit sequence. Use the `add-academic-entry` skill for routine entry capture; it previews the schema-correct row before writing. Do not manually edit the generated `cv/michael-bradley-cannell-cv.md`; change its source data and run `quarto render cv/index.qmd` instead.
+
 ## Data model
 
 ### `data/publications.csv`
