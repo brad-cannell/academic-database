@@ -1,0 +1,25 @@
+/* Dashboard table layout. See interactive_table() in index.qmd. */
+
+/* Keep short columns (years, roles, dates, amounts) on one line so DT sizes
+   them to their content instead of squeezing and wrapping them. */
+table.dataTable th,
+table.dataTable td {
+  white-space: nowrap;
+}
+
+/* With horizontal scrolling, DataTables draws the header and body as separate
+   tables. The header is left-aligned but the body is centered, so a table
+   narrower than its card showed its rows shifted right of the headers. */
+.dataTables_scrollBody > table.dataTable {
+  margin-left: 0 !important;
+}
+
+/* Long free-text columns (titles, journals) wrap within the fixed width set in
+   interactive_table(). When the total width exceeds the card, the table
+   scrolls sideways. */
+table.dataTable th.dt-wrap,
+table.dataTable td.dt-wrap {
+  white-space: normal;
+  min-width: 22em;
+  max-width: 22em;
+}

@@ -4,6 +4,7 @@ author: "Brad Cannell"
 format:
   dashboard:
     theme: cosmo
+    css: styles.css
     nav-buttons: []
 execute:
   echo: false
@@ -65,25 +66,58 @@ blank_na <- function(x) tidyr::replace_na(x, "")
 #' static `knitr::kable()` tables, which had no way to search or sort (task note
 #' "Create an Academic Database and Dashboard", 2026-09-25 dashboard subtasks).
 #'
+#' Long free-text columns (any character or factor column with a value over 40
+#' characters, e.g. titles and journals) wrap at a minimum width; every other
+#' column stays on one line. The table then grows wider than a narrow card and
+#' scrolls horizontally instead of squeezing all columns to fit (styles in
+#' `dashboard/styles.css`).
+#'
+#' Small tables (`small_max` rows or fewer, e.g. the Teaching & Mentoring cards)
+#' drop the search box, filter row, and row-count line and keep only sorting.
+#' Those controls took most of a short card's height, leaving room for about
+#' one row, and add little when every row is already visible.
+#'
 #' @param df A data frame whose column names are already display-ready.
 #' @param page_length Rows shown per page before paginating.
+#' @param small_max Largest row count that gets the simplified, sort-only table.
 #' @return A `datatables` htmlwidget that Quarto sizes to fill its card.
-interactive_table <- function(df, page_length = 25) {
+interactive_table <- function(df, page_length = 25, small_max = 15) {
+  is_small <- nrow(df) <= small_max
+
+  # DataTables column targets are 0-based. unname() matters: a named vector
+  # serializes to a JSON object, which DataTables silently ignores.
+  is_long_text <- vapply(
+    df,
+    function(col) (is.character(col) || is.factor(col)) &&
+      max(nchar(as.character(col)), 0, na.rm = TRUE) > 40,
+    logical(1)
+  )
+  wrap_targets <- as.list(unname(which(is_long_text)) - 1)
+
   DT::datatable(
     df,
     rownames = FALSE,
     # Per-column filter boxes above the headers; text columns get a search box
-    # and numeric columns get a range slider.
-    filter = "top",
+    # and numeric columns get a range slider. Omitted for small tables.
+    filter = if (is_small) "none" else "top",
     # Let the widget fill the dashboard card instead of overflowing it.
     fillContainer = TRUE,
     options = list(
       pageLength = page_length,
+      # DataTables layout string: "f" search box, "i" row-count line, "t" the
+      # table itself. Small tables show the table only.
+      dom = if (is_small) "t" else "fit",
       # Keep the input order (already sorted in each chunk) until a header is clicked.
       order = list(),
       # Scroll inside the card rather than growing the page.
       scrollY = "100%",
-      scrollCollapse = TRUE
+      scrollCollapse = TRUE,
+      # Scroll sideways when the columns' natural widths exceed the card.
+      scrollX = TRUE,
+      # autoWidth lets DT honor the fixed width on long-text columns, which
+      # then wrap at that width instead of stretching to their full length.
+      autoWidth = TRUE,
+      columnDefs = list(list(className = "dt-wrap", width = "22em", targets = wrap_targets))
     )
   )
 }
