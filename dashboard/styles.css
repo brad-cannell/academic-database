@@ -23,3 +23,34 @@ table.dataTable td.dt-wrap {
   min-width: 22em;
   max-width: 22em;
 }
+
+/* Value boxes: keep the icon beside the text in narrow boxes.
+   When a value box is 300px wide or less (the five Overview boxes at common
+   laptop widths), bslib stacks the icon above the text. The stacked icon and
+   text are taller than the value-box row, so the icon was clipped at the top.
+   These rules keep the side-by-side layout used by wider boxes, with a
+   narrower icon column and a smaller value font so long values such as
+   "$32,038,775" still fit. Wider boxes (Funding, Teaching & Mentoring) are
+   unaffected. */
+@container bslib-value-box (max-width: 300px) {
+  .bslib-value-box.showcase-left-center .value-box-grid {
+    grid-template-rows: none !important;
+    grid-template-areas: "left right" !important;
+    grid-template-columns: 24% auto !important;
+  }
+
+  .bslib-value-box.showcase-left-center .value-box-grid .value-box-showcase {
+    grid-area: left !important;
+    padding: 0 0 0 0.75rem;
+  }
+
+  .bslib-value-box.showcase-left-center .value-box-grid .value-box-area {
+    grid-area: right !important;
+    justify-content: center;
+    padding: 1rem 0.75rem;
+  }
+
+  .quarto-dashboard .bslib-value-box .value-box-value {
+    font-size: 10.5cqw;
+  }
+}
