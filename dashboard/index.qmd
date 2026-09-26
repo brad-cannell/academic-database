@@ -121,6 +121,28 @@ interactive_table <- function(df, page_length = 25, small_max = 15) {
     )
   )
 }
+
+#' Render a ggplot as an interactive chart that fills its card
+#'
+#' Converts a ggplot with `plotly::ggplotly()`. The Overview charts used to be
+#' static images drawn at knitr's default figure size, which Quarto scaled down
+#' to fit each card, shrinking the axis text and leaving empty space (task note
+#' "Create an Academic Database and Dashboard", 2026-09-25 dashboard subtasks).
+#' A plotly widget resizes to its card at any window size and keeps its text at
+#' a fixed pixel size.
+#'
+#' Each chart supplies a `text` aesthetic with a formatted hover label, so the
+#' tooltip shows readable values (e.g. "$3,056,003") instead of internal column
+#' names and raw numbers.
+#'
+#' @param p A ggplot object with a `text` aesthetic for the hover label.
+#' @return A `plotly` htmlwidget that Quarto sizes to fill its card.
+interactive_plot <- function(p) {
+  plotly::ggplotly(p, tooltip = "text") %>%
+    # Hide plotly's zoom/pan/download toolbar; these are simple bar charts and
+    # the toolbar covers part of a small card.
+    plotly::config(displayModeBar = FALSE)
+}
 ```
 
 # Overview
@@ -173,40 +195,43 @@ sum(is.na(mentoring$end_year))
 
 ```{r}
 #| title: "Publications by Year"
-publications %>%
+p <- publications %>%
   count(year) %>%
-  ggplot(aes(x = year, y = n)) +
+  ggplot(aes(x = year, y = n, text = paste0(year, ": ", n, " publications"))) +
   geom_col(fill = "#2c3e50") +
   labs(x = NULL, y = "Publications") +
-  theme_minimal(base_size = 13)
+  theme_minimal(base_size = 15)
+interactive_plot(p)
 ```
 
 ### Column {width="40%"}
 
 ```{r}
 #| title: "Publications by Type"
-publications %>%
+p <- publications %>%
   count(publication_type) %>%
-  ggplot(aes(x = reorder(publication_type, n), y = n)) +
+  ggplot(aes(x = reorder(publication_type, n), y = n, text = paste0(publication_type, ": ", n))) +
   geom_col(fill = "#2c3e50") +
   coord_flip() +
   labs(x = NULL, y = "Count") +
-  theme_minimal(base_size = 13)
+  theme_minimal(base_size = 15)
+interactive_plot(p)
 ```
 
 ## Row {height="40%"}
 
 ```{r}
 #| title: "Grant Funding by Start Year"
-grants %>%
+p <- grants %>%
   filter(!is.na(start_year)) %>%
   group_by(start_year) %>%
   summarise(total_cost = sum(total_cost, na.rm = TRUE)) %>%
-  ggplot(aes(x = start_year, y = total_cost)) +
+  ggplot(aes(x = start_year, y = total_cost, text = paste0(start_year, ": ", money(total_cost)))) +
   geom_col(fill = "#18795a") +
   scale_y_continuous(labels = scales::label_dollar(scale = 1e-6, suffix = "M")) +
-  labs(x = NULL, y = "Total award amount") +
-  theme_minimal(base_size = 13)
+  labs(x = NULL, y = "Award amount") +
+  theme_minimal(base_size = 15)
+interactive_plot(p)
 ```
 
 # Funding

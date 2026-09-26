@@ -48,6 +48,7 @@ jobs:
             any::knitr
             any::rmarkdown
             any::DT
+            any::plotly
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
