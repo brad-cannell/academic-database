@@ -1,2 +1,7 @@
 
 .DS_Store
+
+# Rendered dashboard output. GitHub Actions renders and publishes the site
+# (publish-dashboard.yml), so local renders are previews only.
+dashboard/index.html
+dashboard/index_files/

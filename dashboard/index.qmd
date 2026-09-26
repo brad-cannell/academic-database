@@ -57,6 +57,36 @@ money <- function(x) {
 }
 
 blank_na <- function(x) tidyr::replace_na(x, "")
+
+#' Render a data frame as an interactive table
+#'
+#' Wraps `DT::datatable()` so every dashboard table gets the same search box,
+#' click-to-sort column headers, and per-column filter boxes. Replaces the
+#' static `knitr::kable()` tables, which had no way to search or sort (task note
+#' "Create an Academic Database and Dashboard", 2026-09-25 dashboard subtasks).
+#'
+#' @param df A data frame whose column names are already display-ready.
+#' @param page_length Rows shown per page before paginating.
+#' @return A `datatables` htmlwidget that Quarto sizes to fill its card.
+interactive_table <- function(df, page_length = 25) {
+  DT::datatable(
+    df,
+    rownames = FALSE,
+    # Per-column filter boxes above the headers; text columns get a search box
+    # and numeric columns get a range slider.
+    filter = "top",
+    # Let the widget fill the dashboard card instead of overflowing it.
+    fillContainer = TRUE,
+    options = list(
+      pageLength = page_length,
+      # Keep the input order (already sorted in each chunk) until a header is clicked.
+      order = list(),
+      # Scroll inside the card rather than growing the page.
+      scrollY = "100%",
+      scrollCollapse = TRUE
+    )
+  )
+}
 ```
 
 # Overview
@@ -185,12 +215,17 @@ grants %>%
     Sponsor = funder_abbreviation,
     `Award #` = blank_na(award_number),
     Status = status,
-    `Total Cost` = money(total_cost),
+    # Kept numeric (not pre-formatted text) so the column sorts by amount;
+    # formatCurrency() below handles the display.
+    `Total Cost` = total_cost,
     Start = start_date,
     End = end_date,
-    `Effort %` = ifelse(is.na(effort_percent), "", as.character(effort_percent))
+    `Effort %` = effort_percent
   ) %>%
-  knitr::kable()
+  # Dropdown filters for the controlled-vocabulary columns.
+  mutate(across(c(Role, Sponsor, Status), factor)) %>%
+  interactive_table() %>%
+  DT::formatCurrency("Total Cost", digits = 0)
 ```
 
 # Publications
@@ -209,7 +244,10 @@ publications %>%
     Position = author_position,
     Status = status
   ) %>%
-  knitr::kable()
+  # Factors make DT show a dropdown of the controlled-vocabulary values in the
+  # column filter, instead of a free-text box.
+  mutate(across(c(Type, Position, Status), factor)) %>%
+  interactive_table()
 ```
 
 # Teaching & Mentoring
@@ -249,7 +287,7 @@ sum(is.na(service$end_year))
 teaching %>%
   filter(is.na(end_year)) %>%
   transmute(Institution = institution, Course = paste(course_code, course_title, sep = " — "), `Since` = start_year, Role = role) %>%
-  knitr::kable()
+  interactive_table()
 ```
 
 ```{r}
@@ -257,7 +295,7 @@ teaching %>%
 mentoring %>%
   filter(is.na(end_year)) %>%
   transmute(Mentee = mentee_name, Role = role, Context = degree_or_context, Since = start_year) %>%
-  knitr::kable()
+  interactive_table()
 ```
 
 ### Column {width="50%"}
@@ -267,7 +305,7 @@ mentoring %>%
 service %>%
   filter(is.na(end_year)) %>%
   transmute(Organization = organization, Role = role, Category = category, Since = start_year) %>%
-  knitr::kable()
+  interactive_table()
 ```
 
 ```{r}
@@ -275,5 +313,5 @@ service %>%
 reviewer_relationships %>%
   filter(status == "ongoing") %>%
   transmute(Journal = journal_or_venue, Type = relationship_type) %>%
-  knitr::kable()
+  interactive_table()
 ```
