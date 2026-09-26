@@ -171,9 +171,9 @@ Use the [`Updating Academic Database and CV` SOP](https://github.com/brad-cannel
 | `mentee_name` | mentee's name |
 | `role` | `primary-advisor` \| `committee-member` \| `ra-ta-intern` \| `external-mentee` \| `postdoc-mentee` \| `faculty-mentee` |
 | `degree_or_context` | degree program or mentoring context |
-| `start_year`, `end_year` | years of the mentoring relationship (blank `end_year` if ongoing) |
+| `start_year`, `end_year` | years Brad mentored this person (blank `end_year` if ongoing), not their program enrollment or graduation dates. The dashboard counts a mentee as active when `end_year` is blank. |
 | `primary_advisor` | `TRUE`/`FALSE` — Brad is the primary advisor |
-| `current_status` | mentee's current status (e.g. `graduated`, `in-program`, `faculty`) |
+| `current_status` | mentee's current enrollment or career status (e.g. `graduated`, `enrolled`, `not-enrolled`, `faculty`), independent of the mentoring years. A mentee whose mentoring ended can still be `enrolled`. |
 | `role_detail` | free text elaborating on `role` |
 
 ### `data/advising_load.csv`
