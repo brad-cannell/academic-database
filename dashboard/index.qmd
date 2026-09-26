@@ -59,6 +59,58 @@ money <- function(x) {
 
 blank_na <- function(x) tidyr::replace_na(x, "")
 
+# Display labels for the controlled-vocabulary codes stored in the CSVs (see the
+# vocabularies in README.md). The CSVs keep the codes; only the dashboard shows
+# these labels, so readers don't see raw values like `peer_reviewed_article`
+# (task note "Create an Academic Database and Dashboard", dashboard polish
+# subtask). One flat lookup works because no code has two meanings across
+# columns.
+code_labels <- c(
+  # publications.csv: publication_type
+  "peer_reviewed_article" = "Peer-reviewed article",
+  "book"                  = "Book",
+  "chapter"               = "Book chapter",
+  "other"                 = "Other",
+  # publications.csv: author_position
+  "first"                 = "First",
+  "middle"                = "Middle",
+  "last"                  = "Last",
+  # publications.csv and grants.csv: status
+  "published"             = "Published",
+  "funded"                = "Funded (active)",
+  "completed"             = "Completed",
+  # mentoring.csv: role
+  "primary-advisor"       = "Primary advisor",
+  "committee-member"      = "Committee member",
+  "ra-ta-intern"          = "RA/TA/intern",
+  "external-mentee"       = "External mentee",
+  "postdoc-mentee"        = "Postdoc mentee",
+  "faculty-mentee"        = "Faculty mentee",
+  # service.csv: category
+  "community"             = "Community",
+  "university"            = "University",
+  "profession"            = "Profession",
+  "editorial"             = "Editorial",
+  # reviewer_relationships.csv: relationship_type
+  "editorial-board"       = "Editorial board",
+  "ad-hoc-reviewer"       = "Ad hoc reviewer",
+  "software-reviewer"     = "Software reviewer",
+  # teaching.csv: role
+  "instructor-of-record"  = "Instructor of record",
+  "course-director-other" = "Not instructor of record"
+)
+
+#' Convert controlled-vocabulary codes to display labels
+#'
+#' @param x A character vector of codes from a controlled-vocabulary column.
+#' @return A character vector of labels. A code missing from `code_labels` is
+#'   returned unchanged, so a newly added vocabulary value still displays (as
+#'   its raw code, a visible reminder to add a label) rather than going blank.
+label_code <- function(x) {
+  labels <- unname(code_labels[x])
+  ifelse(is.na(labels), x, labels)
+}
+
 #' Render a data frame as an interactive table
 #'
 #' Wraps `DT::datatable()` so every dashboard table gets the same search box,
@@ -210,7 +262,8 @@ interactive_plot(p)
 #| title: "Publications by Type"
 p <- publications %>%
   count(publication_type) %>%
-  ggplot(aes(x = reorder(publication_type, n), y = n, text = paste0(publication_type, ": ", n))) +
+  mutate(type_label = label_code(publication_type)) %>%
+  ggplot(aes(x = reorder(type_label, n), y = n, text = paste0(type_label, ": ", n))) +
   geom_col(fill = "#2c3e50") +
   coord_flip() +
   labs(x = NULL, y = "Count") +
@@ -273,7 +326,7 @@ grants %>%
     Role = role,
     Sponsor = funder_abbreviation,
     `Award #` = blank_na(award_number),
-    Status = status,
+    Status = label_code(status),
     # Kept numeric (not pre-formatted text) so the column sorts by amount;
     # formatCurrency() below handles the display.
     `Total Cost` = total_cost,
@@ -299,9 +352,9 @@ publications %>%
     Year = year,
     Title = title,
     Journal = journal_or_venue,
-    Type = publication_type,
-    Position = author_position,
-    Status = status
+    Type = label_code(publication_type),
+    Position = label_code(author_position),
+    Status = label_code(status)
   ) %>%
   # Factors make DT show a dropdown of the controlled-vocabulary values in the
   # column filter, instead of a free-text box.
@@ -345,7 +398,7 @@ sum(is.na(service$end_year))
 #| title: "Ongoing Teaching"
 teaching %>%
   filter(is.na(end_year)) %>%
-  transmute(Institution = institution, Course = paste(course_code, course_title, sep = " — "), `Since` = start_year, Role = role) %>%
+  transmute(Institution = institution, Course = paste(course_code, course_title, sep = " — "), `Since` = start_year, Role = label_code(role)) %>%
   interactive_table()
 ```
 
@@ -353,7 +406,7 @@ teaching %>%
 #| title: "Active Mentoring"
 mentoring %>%
   filter(is.na(end_year)) %>%
-  transmute(Mentee = mentee_name, Role = role, Context = degree_or_context, Since = start_year) %>%
+  transmute(Mentee = mentee_name, Role = label_code(role), Context = degree_or_context, Since = start_year) %>%
   interactive_table()
 ```
 
@@ -363,7 +416,7 @@ mentoring %>%
 #| title: "Active Service"
 service %>%
   filter(is.na(end_year)) %>%
-  transmute(Organization = organization, Role = role, Category = category, Since = start_year) %>%
+  transmute(Organization = organization, Role = role, Category = label_code(category), Since = start_year) %>%
   interactive_table()
 ```
 
@@ -371,6 +424,6 @@ service %>%
 #| title: "Ongoing Reviewer Relationships"
 reviewer_relationships %>%
   filter(status == "ongoing") %>%
-  transmute(Journal = journal_or_venue, Type = relationship_type) %>%
+  transmute(Journal = journal_or_venue, Type = label_code(relationship_type)) %>%
   interactive_table()
 ```
