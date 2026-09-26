@@ -18,7 +18,7 @@ Full planning for this project happened in the `knowledge-workbench` vault, at:
 
 - `Notes/ADR/Academic Database and Dashboard Plan.md` — the architecture decision record
   with full rationale.
-- `Tasks/KWB/Create an Academic Database and Dashboard.md` — the task breakdown.
+- `Tasks/Academic Database/Create an Academic Database and Dashboard.md` — the task breakdown.
 
 If `knowledge-workbench` is ever attached alongside this repo in a session, consult those
 notes for anything not covered here, and register this repo in its `_context/satellites.md`
@@ -29,11 +29,10 @@ notes for anything not covered here, and register this repo in its `_context/sat
 1. **Architecture**: one CSV file per entity, queried directly with R (`readr`/`dplyr`),
    rendered as a Quarto dashboard (`format: dashboard`). No DuckDB/SQLite/Shiny in v1.
 2. **Repo**: a new satellite repo (this one), not a folder inside an existing repo.
-3. **Publishing**: local rendering only for now — no GitHub Pages/Netlify. The repo is
+3. **Publishing**: the dashboard is auto-published to GitHub Pages by
+   `.github/workflows/publish-dashboard.yml` (decided and shipped 2026-07-12). The repo is
    public, and Brad confirmed 2026-07-11 he's comfortable with that (including the real award
-   numbers/dollar amounts already in `data/grants.csv`). That resolves the *data*-sensitivity
-   question; whether to publish the rendered *dashboard* (GitHub Pages/Netlify) is still a
-   separate, undecided step.
+   numbers/dollar amounts already in `data/grants.csv`).
 4. **Scope**: v1 includes presentations, teaching, and awards (sourced from Brad's CV), not
    just the Google Sheet's original six entities.
 5. **`professional_memberships.csv`** is included in v1, not deferred.
@@ -50,8 +49,9 @@ notes for anything not covered here, and register this repo in its `_context/sat
 
 ## Phased plan
 
-See `README.md`'s "Status" section for current phase-by-phase status. Not duplicated here
-so the two can't drift out of sync — update README.md when a phase's status changes.
+Project status and history live in the knowledge-workbench task note
+`Tasks/Academic Database/Create an Academic Database and Dashboard.md` (Subtasks and
+Comments and Activity), not in this repo. Update that note when a phase's status changes.
 
 ## AI skills
 
@@ -85,8 +85,8 @@ Existing skills:
 
 ## Working in this repo
 
-- Don't add a database engine, Shiny, or a publishing pipeline — those are explicitly out
-  of scope for v1 per the decisions above.
+- Don't add a database engine or Shiny — those are explicitly out of scope for v1 per the
+  decisions above.
 - When migrating data (Phase 2), prefer small, reviewable batches per entity over one giant
   commit, so Brad can spot-check accuracy against the CV/Google Sheet as we go.
 - After editing any `data/*.csv`, run `python3 scripts/validate_csvs.py` (stdlib only, no

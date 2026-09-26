@@ -14,6 +14,16 @@ served the same purpose.
   Pages by `.github/workflows/publish-dashboard.yml` on every push to `main` that touches
   `dashboard/` or `data/` (or via manual dispatch). No Shiny. `quarto render
   dashboard/index.qmd` still works locally for previewing changes before they're pushed.
+- **Automation**: `scripts/ingest_orcid_pubmed.py` backfills publication DOI/PMID values from
+  ORCID and PubMed (preview by default; `--apply` writes). `scripts/ingest_nih_reporter.py`
+  reconciles `grants.csv` and `budget_years.csv` against NIH RePORTER and never writes. The
+  monthly refresh (`.github/workflows/monthly-refresh.yml`) runs both in preview mode on the
+  1st of each month, re-renders the dashboard as a smoke test, and opens a GitHub Issue with
+  the results. It is report-only. It re-flags grant-02 every month because its 3rd
+  `budget_years.csv` row is a CV projection, not a RePORTER disbursement; this is expected.
+
+Project status and history are tracked in the knowledge-workbench task note
+`Tasks/Academic Database/Create an Academic Database and Dashboard.md`, not in this repo.
 
 ## Conventions
 
@@ -191,36 +201,3 @@ Use the [`Updating Academic Database and CV` SOP](https://github.com/brad-cannel
 | `abbreviation` | short code (e.g. `APHA`) |
 | `start_year`, `end_year` | membership years (blank `end_year` if ongoing) |
 | `notes` | free text |
-
-## Status
-
-- **Phase 0 — done.** Google Sheet and CV both audited; data model is final.
-- **Phase 1 — done.** Repo scaffolding — schema defined, CSVs created.
-- **Phase 2 — done.** Data migrated from the Google Sheet and CV into all 14 CSVs (CV wins
-  where the two disagreed on funding/publications). `scripts/validate_csvs.py` passes clean.
-- **Phase 3 — done.** `dashboard/index.qmd` renders cleanly with `quarto render
-  dashboard/index.qmd` and has been visually verified across all four pages (Overview,
-  Funding, Publications, Teaching & Mentoring). It is also auto-published to GitHub Pages by
-  `.github/workflows/publish-dashboard.yml` on every push to `main` that touches `dashboard/`
-  or `data/` (or via manual dispatch) — live at
-  <https://brad-cannell.github.io/academic-database/>. `quarto render` remains the way to
-  preview changes locally before pushing.
-- **Phase 4 — done.** The `add-academic-entry` skill (paste a citation/award notice/CV
-  bullet, get a previewed CSV row, confirm, auto-validate) is built. ORCID/PubMed ingest
-  (`scripts/ingest_orcid_pubmed.py`) is also built and has backfilled DOI/PMID values for
-  existing publications from ORCID's public API. NIH RePORTER ingest
-  (`scripts/ingest_nih_reporter.py`) is also built — a preview-only reconciliation report
-  (never writes to any CSV) that already caught and fixed three real `grants.csv` errors on
-  its first run: a stale award number and program-name-instead-of-project-title for the
-  Roybal Center grant, and two no-cost-extension end dates that hadn't been updated. A
-  scheduled monthly refresh (`.github/workflows/monthly-refresh.yml`) runs both ingest
-  scripts and re-renders the dashboard as a smoke test on the 1st of each month, opening a
-  GitHub Issue with the results — report-only, it never writes to a CSV or commits. Verified
-  working via two manual test runs 2026-07-11. One open item from testing: RePORTER's
-  budget-year coverage report flagged that grant-02's `budget_years.csv` total ($4,664,014
-  across 3 rows) doesn't match RePORTER's 2 reported fiscal years ($3,056,003) — needs manual
-  review, same category of issue as the grant-01/grant-05 gaps fixed earlier.
-- **Phase 5 — not started.** Retire the Google Sheet once this system has handled a full
-  month of real updates.
-
-See `CLAUDE.md` for pointers back to the full planning notes.
